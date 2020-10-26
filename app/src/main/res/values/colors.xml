@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#6200EE</color>
+    <color name="colorPrimaryDark">#3700B3</color>
+    <color name="colorAccent">#03DAC5</color>
+
+    <color name="main_btn">#ffffff</color>
+    <color name="white_100">#ffffffff</color>
+    <color name="text_blue">#2b8cfb</color>
+    <color name="transparent">#00000000</color>
+    <color name="sixty_transparent">#60ffffff</color>
+    <color name="blue_transparent">#8020137e</color>
+    <color name="matter_stroke_color">#5cd7fe</color>
+    <color name="face_stroke_color">#5cb7fe</color>
+    <color name="matter_solid_color">#8020137e</color>
+    <color name="face_solid_color">#6620137e</color>
+    <color name="color_nav">#3a3593</color>
+    <color name="color_liuliuliu">#666</color>
+    <color name="color_letter">#f04e4e</color>
+    <color name="color_btn_ques">#ffe222</color>
+    <color name="color_E9C25F">#E9C25F</color>
+    <color name="color_F2CA60">#F2CA60</color>
+    <color name="color_90EE90">#90EE90</color>
+    <color name="rtc_main_bg">#1B1B1B</color>
+    <color name="eighty_transparent">#80ffffff</color>
+    <color name="EAECF3">#EAECF3</color>
+    <color name="answer_color">#202C75</color>
+    <color name="red">#FF0000</color>
+    <color name="toast_color">#B3656565</color>
+</resources>

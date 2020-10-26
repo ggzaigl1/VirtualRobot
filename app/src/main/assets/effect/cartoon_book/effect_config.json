@@ -1,0 +1,43 @@
+{
+  "name": "书",
+  "effectID": "STA_avatar_kt_def_shu",
+  "icon": "",
+  "gender": 1,
+  "bundlePath": [
+    "effect/cartoon_book/avatar/STA_avatar_kt_def_shu.bundle"
+  ],
+  "defaultAnimPath": [
+    {
+      "name": "默认呼吸",
+      "icon": "",
+      "path": "effect/cartoon_book/animation/STA_anim_kt_def_shu_huxi.bundle"
+    }
+  ],
+  "animPath": [
+    {
+      "name": "默认呼吸",
+      "icon": "",
+      "path": "effect/cartoon_book/animation/STA_anim_kt_def_shu_huxi.bundle"
+    },
+    {
+      "name": "单手展示",
+      "icon": "",
+      "path": "effect/cartoon_book/animation/STA_anim_kt_def_shu_danshouzhanshi.bundle"
+    }
+  ],
+  "bsConfigPath": "",
+  "lightPath": "",
+  "backgroundPath": "effect/STA_default_bg.bundle",
+  "coordinate": {
+    "fixX": 0,
+    "fixY": 0,
+    "fixZ": -1550.0
+  },
+  "coordinateHalf": {
+    "fixX": 0,
+    "fixY": 250.0,
+    "fixZ": -2500.0
+  },
+  "speakerCode": "m1",
+  "emotionCode": 1
+}

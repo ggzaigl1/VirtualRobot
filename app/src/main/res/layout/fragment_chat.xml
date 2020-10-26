@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <pl.droidsonroids.gif.GifImageView
+        android:id="@+id/gif_speak"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
+        android:background="#00000000" />
+
+    <TextView
+        android:id="@+id/tv_listener"
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_toEndOf="@id/gif_speak"
+        android:background="@drawable/record_bg"
+        android:ellipsize="end"
+        android:gravity="center_vertical"
+        android:lines="1"
+        android:paddingStart="35dp"
+        android:paddingTop="8dp"
+        android:paddingEnd="16dp"
+        android:paddingBottom="8dp"
+        android:textColor="@color/red"
+        android:textSize="22sp"
+        tools:text="你好多还是得花" />
+
+    <EditText
+        android:id="@+id/iat_text"
+        android:layout_width="1dp"
+        android:layout_height="wrap_content" />
+
+    <RelativeLayout
+        android:id="@+id/relative"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_listener"
+        android:background="#00000000">
+
+        <!--        <pl.droidsonroids.gif.GifImageView-->
+        <!--            android:id="@+id/gif_speak"-->
+        <!--            android:layout_width="96dp"-->
+        <!--            android:layout_height="96dp"-->
+        <!--            android:layout_marginStart="10dp"-->
+        <!--            android:layout_marginTop="30dp" />-->
+
+        <!--        <com.sunfusheng.marqueeview.MarqueeView-->
+        <!--            android:id="@+id/marqueeView"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="50dp"-->
+        <!--            android:layout_centerHorizontal="true"-->
+        <!--            android:layout_marginTop="50dp"-->
+        <!--            android:layout_toEndOf="@id/gif_speak"-->
+        <!--            app:mvAnimDuration="1000"-->
+        <!--            app:mvDirection="bottom_to_top"-->
+        <!--            app:mvGravity="center"-->
+        <!--            app:mvInterval="5000"-->
+        <!--            app:mvSingleLine="true"-->
+        <!--            app:mvTextColor="@color/white_100"-->
+        <!--            app:mvTextSize="34sp" />-->
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp"
+            android:background="#00000000" />
+
+    </RelativeLayout>
+
+</RelativeLayout>

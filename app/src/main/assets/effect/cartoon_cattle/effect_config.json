@@ -1,0 +1,43 @@
+{
+  "name": "牛",
+  "effectID": "STA_avatar_kt_def_niu",
+  "icon": "",
+  "gender": 1,
+  "bundlePath": [
+    "effect/cartoon_cattle/avatar/STA_avatar_kt_def_niu.bundle"
+  ],
+  "defaultAnimPath": [
+    {
+      "name": "默认呼吸",
+      "icon": "",
+      "path": "effect/cartoon_cattle/animation/STA_anim_kt_def_niu_huxi.bundle"
+    }
+  ],
+  "animPath": [
+    {
+      "name": "默认呼吸",
+      "icon": "",
+      "path": "effect/cartoon_cattle/animation/STA_anim_kt_def_niu_huxi.bundle"
+    },
+    {
+      "name": "加油",
+      "icon": "",
+      "path": "effect/cartoon_cattle/animation/STA_anim_kt_def_niu_jiayou.bundle"
+    }
+  ],
+  "bsConfigPath": "",
+  "lightPath": "",
+  "backgroundPath": "effect/STA_default_bg.bundle",
+  "coordinate": {
+    "fixX": 0,
+    "fixY": 18.0,
+    "fixZ": -1240.0
+  },
+  "coordinateHalf": {
+    "fixX": 0,
+    "fixY": 210.0,
+    "fixZ": -1700.0
+  },
+  "speakerCode": "m1",
+  "emotionCode": 1
+}

@@ -1,0 +1,319 @@
+{
+  "name": "卡通女",
+  "effectID": "PTA_cartoon_female_avatar",
+  "icon": "",
+  "gender": 0,
+  "bundlePath": [
+    "effect/cartoon_female/avatar/STA_avatar_kt_def_female_moren.bundle"
+  ],
+  "defaultAnimPath": [
+    {
+      "name": "默认呼吸",
+      "icon": "",
+      "path": "effect/cartoon_female/animation/STA_anim_kt_def_female_huxi.bundle"
+    }
+  ],
+  "animPath": [
+    {
+      "name": "默认呼吸",
+      "icon": "",
+      "path": "effect/cartoon_female/animation/STA_anim_kt_def_female_huxi.bundle"
+    },
+    {
+      "name": "抱胸",
+      "icon": "",
+      "path": "effect/cartoon_female/animation/STA_anim_kt_def_female_baoxiong.bundle"
+    },
+    {
+      "name": "悲伤",
+      "icon": "",
+      "path": "effect/cartoon_female/animation/STA_anim_kt_def_female_beishang.bundle"
+    },
+    {
+      "name": "单手展示",
+      "icon": "",
+      "path": "effect/cartoon_female/animation/STA_anim_kt_def_female_danshouzhanshi.bundle"
+    },
+    {
+      "name": "单手放下",
+      "icon": "",
+      "path": "effect/cartoon_female/animation/STA_anim_kt_def_female_danshoufangxia.bundle"
+    },
+    {
+      "name": "单手强调",
+      "icon": "",
+      "path": "effect/cartoon_female/animation/STA_anim_kt_def_female_danshouqiangdiao.bundle"
+    },
+    {
+      "name": "单手握拳",
+      "icon": "",
+      "path": "effect/cartoon_female/animation/STA_anim_kt_def_female_danshouwoquan.bundle"
+    },
+    {
+      "name": "握拳挥动",
+      "icon": "",
+      "path": "effect/cartoon_female/animation/STA_anim_kt_def_female_woquanhuidong.bundle"
+    },
+    {
+      "name": "单手指一",
+      "icon": "",
+      "path": "effect/cartoon_female/animation/STA_anim_kt_def_female_danshouzhiyi.bundle"
+    },
+    {
+      "name": "单摊手",
+      "icon": "",
+      "path": "effect/cartoon_female/animation/STA_anim_kt_def_female_dantanshou.bundle"
+    },
+    {
+      "name": "点头",
+      "icon": "",
+      "path": "effect/cartoon_female/animation/STA_anim_kt_def_female_diantou.bundle"
+    },
+    {
+      "name": "点赞",
+      "icon": "",
+      "path": "effect/cartoon_female/animation/STA_anim_kt_def_female_dianzan.bundle"
+    },
+    {
+      "name": "高兴",
+      "icon": "",
+      "path": "effect/cartoon_female/animation/STA_anim_kt_def_female_gaoxing.bundle"
+    },
+    {
+      "name": "挥手",
+      "icon": "",
+      "path": "effect/cartoon_female/animation/STA_anim_kt_def_female_huishou.bundle"
+    },
+    {
+      "name": "侧点头",
+      "icon": "",
+      "path": "effect/cartoon_female/animation/STA_anim_kt_def_female_cediantou.bundle"
+    },
+    {
+      "name": "惊讶",
+      "icon": "",
+      "path": "effect/cartoon_female/animation/STA_anim_kt_def_female_jingya.bundle"
+    },
+    {
+      "name": "激情澎湃",
+      "icon": "",
+      "path": "effect/cartoon_female/animation/STA_anim_kt_def_female_jiqingpengpai.bundle"
+    },
+    {
+      "name": "鞠躬",
+      "icon": "",
+      "path": "effect/cartoon_female/animation/STA_anim_kt_def_female_jugong.bundle"
+    },
+    {
+      "name": "恐惧",
+      "icon": "",
+      "path": "effect/cartoon_female/animation/STA_anim_kt_def_female_kongju.bundle"
+    },
+    {
+      "name": "嫌弃",
+      "icon": "",
+      "path": "effect/cartoon_female/animation/STA_anim_kt_def_female_xianqi.bundle"
+    },
+    {
+      "name": "OK",
+      "icon": "",
+      "path": "effect/cartoon_female/animation/STA_anim_kt_def_female_ok.bundle"
+    },
+    {
+      "name": "期望",
+      "icon": "",
+      "path": "effect/cartoon_female/animation/STA_anim_kt_def_female_qiwang.bundle"
+    },
+    {
+      "name": "生气",
+      "icon": "",
+      "path": "effect/cartoon_female/animation/STA_anim_kt_def_female_shengqi.bundle"
+    },
+    {
+      "name": "双手碰撞",
+      "icon": "",
+      "path": "effect/cartoon_female/animation/STA_anim_kt_def_female_shuangshoupengzhuang.bundle"
+    },
+    {
+      "name": "双手强调",
+      "icon": "",
+      "path": "effect/cartoon_female/animation/STA_anim_kt_def_female_shuangshouqiangdiao.bundle"
+    },
+    {
+      "name": "连续强调",
+      "icon": "",
+      "path": "effect/cartoon_female/animation/STA_anim_kt_def_female_lianxuqiangdiao.bundle"
+    },
+    {
+      "name": "双手抬起",
+      "icon": "",
+      "path": "effect/cartoon_female/animation/STA_anim_kt_def_female_shuangshoutaiqi.bundle"
+    },
+    {
+      "name": "双手摊开",
+      "icon": "",
+      "path": "effect/cartoon_female/animation/STA_anim_kt_def_female_shuangshoutankai.bundle"
+    },
+    {
+      "name": "摊手挥动",
+      "icon": "",
+      "path": "effect/cartoon_female/animation/STA_anim_kt_def_female_tanshouhuidong.bundle"
+    },
+    {
+      "name": "双手展开",
+      "icon": "",
+      "path": "effect/cartoon_female/animation/STA_anim_kt_def_female_shuangshouzhankai.bundle"
+    },
+    {
+      "name": "向前摊手",
+      "icon": "",
+      "path": "effect/cartoon_female/animation/STA_anim_kt_def_female_xiangqiantanshou.bundle"
+    },
+    {
+      "name": "摊手",
+      "icon": "",
+      "path": "effect/cartoon_female/animation/STA_anim_kt_def_female_tanshouhuidong.bundle"
+    },
+    {
+      "name": "歪头",
+      "icon": "",
+      "path": "effect/cartoon_female/animation/STA_anim_kt_def_female_waitou.bundle"
+    },
+    {
+      "name": "信任",
+      "icon": "",
+      "path": "effect/cartoon_female/animation/STA_anim_kt_def_female_xinren.bundle"
+    },
+    {
+      "name": "加油打气",
+      "icon": "",
+      "path": "effect/cartoon_female/animation/STA_anim_kt_def_female_jiayoudaqi.bundle"
+    },
+    {
+      "name": "害羞",
+      "icon": "",
+      "path": "effect/cartoon_female/animation/STA_anim_kt_def_female_haixiu.bundle"
+    },
+    {
+      "name": "摇摆",
+      "icon": "",
+      "path": "effect/cartoon_female/animation/STA_anim_kt_def_female_yaobai.bundle"
+    },
+    {
+      "name": "疑问",
+      "icon": "",
+      "path": "effect/cartoon_female/animation/STA_anim_kt_def_female_yiwen.bundle"
+    },
+    {
+      "name": "自然握手",
+      "icon": "",
+      "path": "effect/cartoon_female/animation/STA_anim_kt_def_female_ziranwoshou.bundle"
+    },
+    {
+      "name": "左侧展示",
+      "icon": "",
+      "path": "effect/cartoon_female/animation/STA_anim_kt_def_female_zuocezhanshi.bundle"
+    },
+    {
+      "name": "手掌翻动",
+      "icon": "",
+      "path": "effect/cartoon_female/animation/STA_anim_kt_def_female_shouzhangfandong.bundle"
+    },
+    {
+      "name": "单手收回",
+      "icon": "",
+      "path": "effect/cartoon_female/animation/STA_anim_kt_def_female_danshoushouhui.bundle"
+    },
+    {
+      "name": "连续摊手",
+      "icon": "",
+      "path": "effect/cartoon_female/animation/STA_anim_kt_def_female_lianxutanshou.bundle"
+    },
+    {
+      "name": "向下指点",
+      "icon": "",
+      "path": "effect/cartoon_female/animation/STA_anim_kt_def_female_xiangxiazhidian.bundle"
+    },
+    {
+      "name": "摊手强调",
+      "icon": "",
+      "path": "effect/cartoon_female/animation/STA_anim_kt_def_female_tanshouqiangdiao.bundle"
+    },
+    {
+      "name": "摇摆点头",
+      "icon": "",
+      "path": "effect/cartoon_female/animation/STA_anim_kt_def_female_yaobaidiantou.bundle"
+    },
+    {
+      "name": "转动摊手",
+      "icon": "",
+      "path": "effect/cartoon_female/animation/STA_anim_kt_def_female_zhuandongtanshou.bundle"
+    },
+    {
+      "name": "手微动",
+      "icon": "",
+      "path": "effect/cartoon_female/animation/STA_anim_kt_def_female_shouweidong.bundle"
+    },
+    {
+      "name": "思考",
+      "icon": "",
+      "path": "effect/cartoon_female/animation/STA_anim_kt_def_female_sikao.bundle"
+    },
+    {
+      "name": "拇指交替",
+      "icon": "",
+      "path": "effect/cartoon_female/animation/STA_anim_kt_def_female_muzhijiaoti.bundle"
+    },
+    {
+      "name": "打招呼",
+      "icon": "",
+      "path": "effect/cartoon_female/animation/STA_anim_kt_def_female_dazhaohu.bundle"
+    },
+    {
+      "name": "微笑",
+      "icon": "",
+      "path": "effect/cartoon_female/animation/STA_anim_kt_def_female_weixiao.bundle"
+    },
+    {
+      "name": "向上招呼",
+      "icon": "",
+      "path": "effect/cartoon_female/animation/STA_anim_kt_def_female_xiangshangzhaohu.bundle"
+    },
+    {
+      "name": "向下招呼",
+      "icon": "",
+      "path": "effect/cartoon_female/animation/STA_anim_kt_def_female_xiangxiazhaohu.bundle"
+    },
+    {
+      "name": "双手强调2",
+      "icon": "",
+      "path": "effect/cartoon_female/animation/STA_anim_kt_def_female_shuangshouqiangdiao_02.bundle"
+    },
+    {
+      "name": "交换摊手",
+      "icon": "",
+      "path": "effect/cartoon_female/animation/STA_anim_kt_def_female_jiaohuantanshou.bundle"
+    },
+    {
+      "name": "双手握拳",
+      "icon": "",
+      "path": "effect/cartoon_female/animation/STA_anim_kt_def_female_shuangshouwoquan.bundle"
+    }
+  ],
+  "bsConfigPath": "",
+  "lightPath": "",
+  "backgroundPath": "effect/STA_default_bg.bundle",
+  "coordinate": {
+    "fixX": 0,
+    "fixY": 40.0,
+    "fixZ": -650.0
+  },
+  "coordinateHalf":{
+    "fixX": 0,
+    "fixY": 90.0,
+    "fixZ": -800.0
+  },
+  "speakerCode": "zh",
+  "emotionCode": 1,
+  "tagAlignConfig": "{\"tagMap\":[{\"tag\":\"#%1#%\",\"expression\":10000,\"path\":\"effect/cartoon_female/animation/STA_anim_kt_def_female_dazhaohu.bundle\"},{\"tag\":\"#%2#%\",\"expression\":10000,\"path\":\"effect/cartoon_female/animation/STA_anim_kt_def_female_yiwen.bundle\"},{\"tag\":\"#%3#%\",\"expression\":10000,\"path\":\"effect/cartoon_female/animation/STA_anim_kt_def_female_xinren.bundle\"}]}"
+}

@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="10dp">
+
+    <ImageView
+        android:id="@+id/iv_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:src="@mipmap/icon_robot" />
+
+    <ImageView
+        android:id="@+id/iv_left"
+        android:layout_width="13dp"
+        android:layout_height="21dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="20dp"
+        android:src="@mipmap/robot_speak_left"
+        android:visibility="gone" />
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="10dp"
+        android:background="@drawable/bg_answer"
+        app:layout_constraintLeft_toRightOf="@id/iv_left"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/tv_question"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="20dp"
+            android:textColor="@color/color_F2CA60"
+            android:textSize="20sp"
+            android:visibility="visible"
+            tools:text="申请低保" />
+
+        <RelativeLayout
+            android:id="@+id/rl_answer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_question">
+
+            <RelativeLayout
+                android:id="@+id/rl_Qr_code"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_marginLeft="50dp"
+                android:layout_marginRight="50dp"
+                android:visibility="visible">
+
+                <ImageView
+                    android:id="@+id/iv_qrcode"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/iv_qrcode"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/qrcode_hint"
+                    android:textColor="@color/white_100"
+                    android:textSize="20sp" />
+
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/tv_msg"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="20dp"
+                android:layout_toStartOf="@id/rl_Qr_code"
+                android:gravity="top"
+                android:paddingEnd="20dp"
+                android:layout_marginTop="10dp"
+                android:paddingBottom="16dp"
+                android:textColor="@color/white_100"
+                android:textSize="16sp"
+                tools:text="参保人员到定点医疗机构就医" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rl_question"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/rl_answer"
+            android:paddingBottom="20dp"
+            android:visibility="visible">
+
+            <LinearLayout
+                android:id="@+id/ll_hint"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:src="@mipmap/divider_left" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="32dp"
+                    android:layout_marginRight="32dp"
+                    android:text="相似问题"
+                    android:textColor="@color/white_100"
+                    android:textSize="20sp" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:src="@mipmap/divider_right" />
+
+            </LinearLayout>
+
+            <com.lilosoft.virtualrobot.widget.QuestionLayout
+                android:id="@+id/questionLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/ll_hint" />
+
+        </RelativeLayout>
+
+        <Button
+            android:id="@+id/bt_action"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/rl_question"
+            android:layout_marginStart="20dp"
+            android:layout_marginBottom="20dp"
+            android:background="@mipmap/bt_question"
+            android:gravity="center"
+            android:minWidth="500dp"
+            android:paddingLeft="16dp"
+            android:paddingEnd="16dp"
+            android:textColor="@color/white_100"
+            android:textSize="26sp"
+            android:visibility="gone" />
+
+    </RelativeLayout>
+
+</LinearLayout>

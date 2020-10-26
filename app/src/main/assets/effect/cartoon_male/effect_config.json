@@ -1,0 +1,314 @@
+{
+  "name": "卡通男",
+  "effectID": "PTA_cartoon_male_avatar",
+  "icon": "",
+  "gender": 1,
+  "bundlePath": [
+    "effect/cartoon_male/avatar/STA_avatar_kt_def_male_moren.bundle"
+  ],
+  "defaultAnimPath": [
+    {
+      "name": "默认呼吸",
+      "icon": "",
+      "path": "effect/cartoon_male/animation/STA_anim_kt_def_male_huxi.bundle"
+    }
+  ],
+  "animPath": [
+    {
+      "name": "默认呼吸",
+      "icon": "",
+      "path": "effect/cartoon_male/animation/STA_anim_kt_def_male_huxi.bundle"
+    },
+    {
+      "name": "抱胸",
+      "icon": "",
+      "path": "effect/cartoon_male/animation/STA_anim_kt_def_male_baoxiong.bundle"
+    },
+    {
+      "name": "悲伤",
+      "icon": "",
+      "path": "effect/cartoon_male/animation/STA_anim_kt_def_male_beishang.bundle"
+    },
+    {
+      "name": "单手展示",
+      "icon": "",
+      "path": "effect/cartoon_male/animation/STA_anim_kt_def_male_danshouzhanshi.bundle"
+    },
+    {
+      "name": "单手放下",
+      "icon": "",
+      "path": "effect/cartoon_male/animation/STA_anim_kt_def_male_danshoufangxia.bundle"
+    },
+    {
+      "name": "单手强调",
+      "icon": "",
+      "path": "effect/cartoon_male/animation/STA_anim_kt_def_male_danshouqiangdiao.bundle"
+    },
+    {
+      "name": "单手握拳",
+      "icon": "",
+      "path": "effect/cartoon_male/animation/STA_anim_kt_def_male_danshouwoquan.bundle"
+    },
+    {
+      "name": "握拳挥动",
+      "icon": "",
+      "path": "effect/cartoon_male/animation/STA_anim_kt_def_male_woquanhuidong.bundle"
+    },
+    {
+      "name": "单手指一",
+      "icon": "",
+      "path": "effect/cartoon_male/animation/STA_anim_kt_def_male_danshouzhiyi.bundle"
+    },
+    {
+      "name": "单摊手",
+      "icon": "",
+      "path": "effect/cartoon_male/animation/STA_anim_kt_def_male_dantanshou.bundle"
+    },
+    {
+      "name": "点头",
+      "icon": "",
+      "path": "effect/cartoon_male/animation/STA_anim_kt_def_male_diantou.bundle"
+    },
+    {
+      "name": "点赞",
+      "icon": "",
+      "path": "effect/cartoon_male/animation/STA_anim_kt_def_male_dianzan.bundle"
+    },
+    {
+      "name": "挥手",
+      "icon": "",
+      "path": "effect/cartoon_male/animation/STA_anim_kt_def_male_huishou.bundle"
+    },
+    {
+      "name": "侧点头",
+      "icon": "",
+      "path": "effect/cartoon_male/animation/STA_anim_kt_def_male_cediantou.bundle"
+    },
+    {
+      "name": "惊讶",
+      "icon": "",
+      "path": "effect/cartoon_male/animation/STA_anim_kt_def_male_jingya.bundle"
+    },
+    {
+      "name": "激情澎湃",
+      "icon": "",
+      "path": "effect/cartoon_male/animation/STA_anim_kt_def_male_jiqingpengpai.bundle"
+    },
+    {
+      "name": "鞠躬",
+      "icon": "",
+      "path": "effect/cartoon_male/animation/STA_anim_kt_def_male_jugong.bundle"
+    },
+    {
+      "name": "恐惧",
+      "icon": "",
+      "path": "effect/cartoon_male/animation/STA_anim_kt_def_male_kongju.bundle"
+    },
+    {
+      "name": "嫌弃",
+      "icon": "",
+      "path": "effect/cartoon_male/animation/STA_anim_kt_def_male_xianqi.bundle"
+    },
+    {
+      "name": "OK",
+      "icon": "",
+      "path": "effect/cartoon_male/animation/STA_anim_kt_def_male_ok.bundle"
+    },
+    {
+      "name": "期望",
+      "icon": "",
+      "path": "effect/cartoon_male/animation/STA_anim_kt_def_male_qiwang.bundle"
+    },
+    {
+      "name": "生气",
+      "icon": "",
+      "path": "effect/cartoon_male/animation/STA_anim_kt_def_male_shengqi.bundle"
+    },
+    {
+      "name": "双手碰撞",
+      "icon": "",
+      "path": "effect/cartoon_male/animation/STA_anim_kt_def_male_shuangshoupengzhuang.bundle"
+    },
+    {
+      "name": "双手强调",
+      "icon": "",
+      "path": "effect/cartoon_male/animation/STA_anim_kt_def_male_shuangshouqiangdiao.bundle"
+    },
+    {
+      "name": "双手交叉",
+      "icon": "",
+      "path": "effect/cartoon_male/animation/STA_anim_kt_def_male_shuangshoujiaocha.bundle"
+    },
+    {
+      "name": "连续强调",
+      "icon": "",
+      "path": "effect/cartoon_male/animation/STA_anim_kt_def_male_lianxuqiangdiao.bundle"
+    },
+    {
+      "name": "双手抬起",
+      "icon": "",
+      "path": "effect/cartoon_male/animation/STA_anim_kt_def_male_shuangshoutaiqi.bundle"
+    },
+    {
+      "name": "双手摊开",
+      "icon": "",
+      "path": "effect/cartoon_male/animation/STA_anim_kt_def_male_shuangshoutankai.bundle"
+    },
+    {
+      "name": "摊手挥动",
+      "icon": "",
+      "path": "effect/cartoon_male/animation/STA_anim_kt_def_male_tanshouhuidong.bundle"
+    },
+    {
+      "name": "双手展开",
+      "icon": "",
+      "path": "effect/cartoon_male/animation/STA_anim_kt_def_male_shuangshouzhankai.bundle"
+    },
+    {
+      "name": "向前摊手",
+      "icon": "",
+      "path": "effect/cartoon_male/animation/STA_anim_kt_def_male_xiangqiantanshou.bundle"
+    },
+    {
+      "name": "摊手",
+      "icon": "",
+      "path": "effect/cartoon_male/animation/STA_anim_kt_def_male_tanshouhuidong.bundle"
+    },
+    {
+      "name": "歪头",
+      "icon": "",
+      "path": "effect/cartoon_male/animation/STA_anim_kt_def_male_waitou.bundle"
+    },
+    {
+      "name": "信任",
+      "icon": "",
+      "path": "effect/cartoon_male/animation/STA_anim_kt_def_male_xinren.bundle"
+    },
+    {
+      "name": "加油打气",
+      "icon": "",
+      "path": "effect/cartoon_male/animation/STA_anim_kt_def_male_jiayoudaqi.bundle"
+    },
+    {
+      "name": "害羞",
+      "icon": "",
+      "path": "effect/cartoon_male/animation/STA_anim_kt_def_male_haixiu.bundle"
+    },
+    {
+      "name": "摇摆",
+      "icon": "",
+      "path": "effect/cartoon_male/animation/STA_anim_kt_def_male_yaobai.bundle"
+    },
+    {
+      "name": "疑问",
+      "icon": "",
+      "path": "effect/cartoon_male/animation/STA_anim_kt_def_male_yiwen.bundle"
+    },
+    {
+      "name": "左侧展示",
+      "icon": "",
+      "path": "effect/cartoon_male/animation/STA_anim_kt_def_male_zuocezhanshi.bundle"
+    },
+    {
+      "name": "手掌翻动",
+      "icon": "",
+      "path": "effect/cartoon_male/animation/STA_anim_kt_def_male_shouzhangfandong.bundle"
+    },
+    {
+      "name": "单手收回",
+      "icon": "",
+      "path": "effect/cartoon_male/animation/STA_anim_kt_def_male_danshoushouhui.bundle"
+    },
+    {
+      "name": "连续摊手",
+      "icon": "",
+      "path": "effect/cartoon_male/animation/STA_anim_kt_def_male_lianxutanshou.bundle"
+    },
+    {
+      "name": "向下指点",
+      "icon": "",
+      "path": "effect/cartoon_male/animation/STA_anim_kt_def_male_xiangxiazhidian.bundle"
+    },
+    {
+      "name": "摊手强调",
+      "icon": "",
+      "path": "effect/cartoon_male/animation/STA_anim_kt_def_male_tanshouqiangdiao.bundle"
+    },
+    {
+      "name": "摇摆点头",
+      "icon": "",
+      "path": "effect/cartoon_male/animation/STA_anim_kt_def_male_yaobaidiantou.bundle"
+    },
+    {
+      "name": "转动摊手",
+      "icon": "",
+      "path": "effect/cartoon_male/animation/STA_anim_kt_def_male_zhuandongtanshou.bundle"
+    },
+    {
+      "name": "手微动",
+      "icon": "",
+      "path": "effect/cartoon_male/animation/STA_anim_kt_def_male_shouweidong.bundle"
+    },
+    {
+      "name": "思考",
+      "icon": "",
+      "path": "effect/cartoon_male/animation/STA_anim_kt_def_male_sikao.bundle"
+    },
+    {
+      "name": "拇指交替",
+      "icon": "",
+      "path": "effect/cartoon_male/animation/STA_anim_kt_def_male_muzhijiaoti.bundle"
+    },
+    {
+      "name": "打招呼",
+      "icon": "",
+      "path": "effect/cartoon_male/animation/STA_anim_kt_def_male_dazhaohu.bundle"
+    },
+    {
+      "name": "微笑",
+      "icon": "",
+      "path": "effect/cartoon_male/animation/STA_anim_kt_def_male_weixiao.bundle"
+    },
+    {
+      "name": "向上招呼",
+      "icon": "",
+      "path": "effect/cartoon_male/animation/STA_anim_kt_def_male_xiangshangzhaohu.bundle"
+    },
+    {
+      "name": "向下招呼",
+      "icon": "",
+      "path": "effect/cartoon_male/animation/STA_anim_kt_def_male_xiangxiazhaohu.bundle"
+    },
+    {
+      "name": "双手强调2",
+      "icon": "",
+      "path": "effect/cartoon_male/animation/STA_anim_kt_def_male_shuangshouqiangdiao_02.bundle"
+    },
+    {
+      "name": "交换摊手",
+      "icon": "",
+      "path": "effect/cartoon_male/animation/STA_anim_kt_def_male_jiaohuantanshou.bundle"
+    },
+    {
+      "name": "双手握拳",
+      "icon": "",
+      "path": "effect/cartoon_male/animation/STA_anim_kt_def_male_shuangshouwoquan.bundle"
+    }
+  ],
+  "bsConfigPath": "",
+  "lightPath": "",
+  "backgroundPath": "effect/STA_default_bg.bundle",
+  "coordinate": {
+    "fixX": 0,
+    "fixY": 40.0,
+    "fixZ": -650.0
+  },
+  "coordinateHalf":{
+    "fixX": 0,
+    "fixY": 90.0,
+    "fixZ": -800.0
+  },
+  "speakerCode": "m1",
+  "emotionCode": 1,
+  "tagAlignConfig": "{\"tagMap\":[{\"tag\":\"#%1#%\",\"expression\":10000,\"path\":\"effect/cartoon_male/animation/STA_anim_kt_def_male_dazhaohu.bundle\"},{\"tag\":\"#%2#%\",\"expression\":10000,\"path\":\"effect/cartoon_male/animation/STA_anim_kt_def_male_yiwen.bundle\"},{\"tag\":\"#%3#%\",\"expression\":10000,\"path\":\"effect/cartoon_male/animation/STA_anim_kt_def_male_xinren.bundle\"}]}"
+}

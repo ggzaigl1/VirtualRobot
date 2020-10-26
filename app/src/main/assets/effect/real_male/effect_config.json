@@ -1,0 +1,43 @@
+{
+  "name": "真人男",
+  "effectID": "PTA_real_male_avatar",
+  "icon": "",
+  "gender": 1,
+  "bundlePath": [
+    "effect/real_male/avatar/STA_avatar_real_dec_male.bundle"
+  ],
+  "defaultAnimPath": [
+    {
+      "name": "默认呼吸",
+      "icon": "",
+      "path": "effect/real_male/animation/STA_anim_real_dec_male_huxi.bundle"
+    }
+  ],
+  "animPath": [
+    {
+      "name": "默认呼吸",
+      "icon": "",
+      "path": "effect/real_male/animation/PTA_real_male_default_anim.bundle"
+    },
+    {
+      "name": "点头",
+      "icon": "",
+      "path": "effect/real_male/animation/STA_anim_real_dec_male_diantou.bundle"
+    }
+  ],
+  "bsConfigPath": "",
+  "lightPath": "",
+  "backgroundPath": "effect/STA_default_bg.bundle",
+  "coordinate": {
+    "fixX": 0,
+    "fixY": -10.0,
+    "fixZ": -100.0
+  },
+  "coordinateHalf": {
+    "fixX": 0,
+    "fixY": 32.0,
+    "fixZ": -250.0
+  },
+  "speakerCode": "m1",
+  "emotionCode": 0
+}

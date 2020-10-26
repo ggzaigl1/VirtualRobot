@@ -1,0 +1,43 @@
+{
+  "name": "真人女",
+  "effectID": "PTA_real_female_avatar",
+  "icon": "",
+  "gender": 0,
+  "bundlePath": [
+    "effect/real_female/avatar/STA_avatar_real_dec_female.bundle"
+  ],
+  "defaultAnimPath": [
+    {
+      "name": "默认呼吸",
+      "icon": "",
+      "path": "effect/real_female/animation/STA_anim_real_dec_female_huxi.bundle"
+    }
+  ],
+  "animPath": [
+    {
+      "name": "默认呼吸",
+      "icon": "",
+      "path": "effect/real_female/animation/STA_anim_real_dec_female_huxi.bundle"
+    },
+    {
+      "name": "点头",
+      "icon": "",
+      "path": "effect/real_female/animation/STA_anim_real_dec_female_diantou.bundle"
+    }
+  ],
+  "bsConfigPath": "",
+  "lightPath": "",
+  "backgroundPath": "effect/STA_default_bg.bundle",
+  "coordinate": {
+    "fixX": 0,
+    "fixY": 22.0,
+    "fixZ": -400.0
+  },
+  "coordinateHalf": {
+    "fixX": 0,
+    "fixY": 70.0,
+    "fixZ": -550.0
+  },
+  "speakerCode": "wy",
+  "emotionCode": 0
+}

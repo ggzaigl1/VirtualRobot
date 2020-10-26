@@ -1,0 +1,43 @@
+{
+  "name": "猪",
+  "effectID": "STA_avatar_kt_def_zhu",
+  "icon": "",
+  "gender": 1,
+  "bundlePath": [
+    "effect/cartoon_pig/avatar/STA_avatar_kt_def_zhu.bundle"
+  ],
+  "defaultAnimPath": [
+    {
+      "name": "默认呼吸",
+      "icon": "",
+      "path": "effect/cartoon_pig/animation/STA_anim_kt_def_zhu_huxi.bundle"
+    }
+  ],
+  "animPath": [
+    {
+      "name": "默认呼吸",
+      "icon": "",
+      "path": "effect/cartoon_pig/animation/STA_anim_kt_def_zhu_huxi.bundle"
+    },
+    {
+      "name": "加油",
+      "icon": "",
+      "path": "effect/cartoon_pig/animation/STA_anim_kt_def_zhu_jiayou.bundle"
+    }
+  ],
+  "bsConfigPath": "",
+  "lightPath": "",
+  "backgroundPath": "effect/STA_default_bg.bundle",
+  "coordinate": {
+    "fixX": 0,
+    "fixY": 36.0,
+    "fixZ": -1350.0
+  },
+  "coordinateHalf": {
+    "fixX": 0,
+    "fixY": 210.0,
+    "fixZ": -1700.0
+  },
+  "speakerCode": "c1",
+  "emotionCode": 1
+}
