@@ -25,6 +25,7 @@ import com.iflytek.cloud.SpeechConstant;
 import com.iflytek.cloud.SpeechRecognizer;
 import com.iflytek.cloud.SpeechSynthesizer;
 import com.lilosoft.virtualrobot.R;
+import com.lilosoft.virtualrobot.tts.XunfeiTtsHandler;
 
 import java.util.Objects;
 
@@ -41,9 +42,10 @@ public abstract class BaseFragment extends Fragment implements RecognizerListene
     //合成对象
     public SpeechSynthesizer mTts;
     // 默认发音人
-    private String voicer = "xiaoyan";
+    private String voicer = "xiaofeng";
     private String language = "zh_cn";
     private String resultType = "plain";
+    public XunfeiTtsHandler xunfeiTtsHandler;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -58,8 +60,10 @@ public abstract class BaseFragment extends Fragment implements RecognizerListene
         mUnbinder = ButterKnife.bind(this, rootView);
         mIat = SpeechRecognizer.createRecognizer(getActivity(), mInitListener);
         setParam();
-        mTts = SpeechSynthesizer.createSynthesizer(getActivity(), mTtsInitListener);
-        setTtsParam();
+
+
+//        mTts = SpeechSynthesizer.createSynthesizer(getActivity(), mTtsInitListener);
+//        setTtsParam();
         init(savedInstanceState, rootView);
         return rootView;
     }
@@ -102,6 +106,7 @@ public abstract class BaseFragment extends Fragment implements RecognizerListene
             }
         }
     };
+
 
     /**
      * 语音听写 参数设置
@@ -175,6 +180,31 @@ public abstract class BaseFragment extends Fragment implements RecognizerListene
             }
         }
     }
+
+    public void release() {
+        if (mTts != null) {
+            mTts.stopSpeaking();
+            mTts.destroy();
+            mTts = null;
+        }
+    }
+
+    public void resumeSpeaking() {
+        if (mTts != null) {
+            if (mTts.isSpeaking()) {
+                mTts.resumeSpeaking();
+            }
+        }
+    }
+
+    public void stopSpeaking() {
+        if (mTts != null) {
+            if (mTts.isSpeaking()) {
+                mTts.stopSpeaking();
+            }
+        }
+    }
+
 
     public Animation shakeAnimation(int CycleTimes) {
         Animation translateAnimation = new TranslateAnimation(0, 10, 0, 0);

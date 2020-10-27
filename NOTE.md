@@ -7,5 +7,5 @@
 
 effect/cartoon_female/animation/STA_anim_kt_def_female_huishou.bundle //动作 挥手
 effect/cartoon_female/animation/STA_anim_kt_def_female_dantanshou.bundle //动作 单摊手
-effect/cartoon_female/animation/STA_anim_kt_def_female_jugong //动作 鞠躬
+effect/cartoon_female/animation/STA_anim_kt_def_female_jugong.bundle //动作 鞠躬
 

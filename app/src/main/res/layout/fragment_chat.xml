@@ -16,9 +16,9 @@
     <TextView
         android:id="@+id/tv_listener"
         android:layout_width="wrap_content"
-        android:layout_height="60dp"
+        android:layout_height="50dp"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="15dp"
         android:layout_toEndOf="@id/gif_speak"
         android:background="@drawable/record_bg"
         android:ellipsize="end"
@@ -29,7 +29,7 @@
         android:paddingEnd="16dp"
         android:paddingBottom="8dp"
         android:textColor="@color/red"
-        android:textSize="22sp"
+        android:textSize="16sp"
         tools:text="你好多还是得花" />
 
     <EditText

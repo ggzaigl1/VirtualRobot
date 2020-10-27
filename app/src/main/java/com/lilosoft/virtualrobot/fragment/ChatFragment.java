@@ -27,6 +27,7 @@ import com.lilosoft.virtualrobot.bean.CharBean;
 import com.lilosoft.virtualrobot.bean.ChatBean;
 import com.lilosoft.virtualrobot.bean.InitializeBean;
 import com.lilosoft.virtualrobot.net.result.RetrofitRequest;
+import com.lilosoft.virtualrobot.tts.XunfeiTtsHandler;
 import com.lilosoft.virtualrobot.utils.ActivityManageUtil;
 
 import java.io.IOException;
@@ -73,6 +74,8 @@ public class ChatFragment extends BaseFragment {
     private boolean isError = true;
     private ArrayList<InitializeBean.ObjBean.RobotBean.GreetingsBean> greetings;
     private Timer timer;
+    public XunfeiTtsHandler xunfeiTtsHandler;
+
 
     @Override
     public void init(Bundle savedInstanceState, View view) {
@@ -87,6 +90,9 @@ public class ChatFragment extends BaseFragment {
         greetings = Constant.getGreetings();
         initRecyclerView();
         initStartGif();
+        xunfeiTtsHandler = new XunfeiTtsHandler(getActivity());
+        xunfeiTtsHandler.initTts();
+
         StringBuilder buffer = new StringBuilder();
         if (!TextUtils.isEmpty(greeting)) {
             buffer.append(greeting);
@@ -238,7 +244,9 @@ public class ChatFragment extends BaseFragment {
 
     //合成回调监听。
     public void TtsListener(String msg) {
-        mTts.startSpeaking(msg, mTtsListener);
+//        mTts.startSpeaking(msg, mTtsListener);
+        ((MainActivity) Objects.requireNonNull(getActivity())).stopMediaPlayer();
+        xunfeiTtsHandler.start(msg);
 
     }
 
@@ -302,7 +310,6 @@ public class ChatFragment extends BaseFragment {
                                 mMainActivity.mBannerLayout.setVisibility(View.VISIBLE);
 //                                ((MainActivity) getActivity()).closeWebDialog();
                                 mMainActivity.mFrameLayoutWebView.setVisibility(View.GONE);
-                                ((MainActivity) Objects.requireNonNull(getActivity())).onBackBaseActionSelected();
                             }
                             startRobotSpeaking(reply_voice, query, file_url, chatBean.getData().getOptions());
                             break;
@@ -314,15 +321,11 @@ public class ChatFragment extends BaseFragment {
                             }
                             mMainActivity.mBannerLayout.setVisibility(View.VISIBLE);
                             mMainActivity.mFrameLayoutWebView.setVisibility(View.GONE);
-                            ((MainActivity) Objects.requireNonNull(getActivity())).onBackBaseActionSelected();
                             break;
                         case "failure":
                             questionFailed(reply);
-                            if (mTts != null) {
-                                if (mTts.isSpeaking()) {
-                                    mTts.resumeSpeaking();
-                                }
-                            }
+                            xunfeiTtsHandler.resumeSpeaking();
+//                            resumeSpeaking();
 //                            mMainActivity.mBannerLayout.setVisibility(View.VISIBLE);
 //                            mMainActivity.mFrameLayoutWebView.setVisibility(View.GONE);
 //                            startRobotSpeaking(reply, "", null, null);
@@ -331,17 +334,14 @@ public class ChatFragment extends BaseFragment {
                             mMainActivity.mBannerLayout.setVisibility(View.VISIBLE);
                             mMainActivity.mFrameLayoutWebView.setVisibility(View.GONE);
                             startRobotSpeaking(reply_voice, query, file_url, chatBean.getData().getOptions());
-                            ((MainActivity) Objects.requireNonNull(getActivity())).onBackBaseActionSelected();
                             break;
                         case "event":
                             if (reply.equals("quit")) {
-                                if (mTts.isSpeaking()) {
-                                    mTts.stopSpeaking();
-                                }
+                                xunfeiTtsHandler.stopSpeaking();
+//                                stopSpeaking();
                                 ((MainActivity) getActivity()).closeWebDialog();
                                 mMainActivity.mBannerLayout.setVisibility(View.VISIBLE);
                                 mMainActivity.mFrameLayoutWebView.setVisibility(View.GONE);
-                                ((MainActivity) Objects.requireNonNull(getActivity())).onBackBaseActionSelected();
 //                                ((MainActivity) Objects.requireNonNull(getActivity())).showWake();
 //                                ((MainActivity) Objects.requireNonNull(getActivity())).showSNDH();
 //                                startRobotSpeaking("", query, file_url, null);
@@ -421,21 +421,15 @@ public class ChatFragment extends BaseFragment {
     @Override
     public void onBeginOfSpeech() {
         mGifFromAssets.start();
-        if (mTts != null) {
-            if (mTts.isSpeaking()) {
-                mTts.resumeSpeaking();
-            }
-        }
+        xunfeiTtsHandler.resumeSpeaking();
+//        resumeSpeaking();
     }
 
     @Override
     public void onEndOfSpeech() {
         mGifFromAssets.stop();
-        if (mTts != null) {
-            if (mTts.isSpeaking()) {
-                mTts.resumeSpeaking();
-            }
-        }
+        xunfeiTtsHandler.resumeSpeaking();
+//        resumeSpeaking();
 //        stopSpeechRecognizerVoice();
         ActivityManageUtil.isSpeaking = false;
         // 此回调表示：检测到了语音的尾端点，已经进入识别过程，不再接受语音输入
@@ -472,16 +466,17 @@ public class ChatFragment extends BaseFragment {
         Log.i(TAG, "ErrorNum:" + ErrorNum);
         if (ErrorNum == 4) {//15秒提示语
             String randomGreeting = getRandomGreeting(greetings);
-            if (mTts.isSpeaking()) {
-                ErrorNum = 0;
-            } else {
-                if (mTv_listener != null) {
-                    mTv_listener.setTextColor(Color.WHITE);
-                    mTv_listener.setText(randomGreeting);
-                    TtsListener(randomGreeting);
-                    ErrorNum = 0;
-                }
-            }
+            xunfeiTtsHandler.num(ErrorNum, mTv_listener, randomGreeting);
+//            if (mTts.isSpeaking()) {
+//                ErrorNum = 0;
+//            } else {
+//                if (mTv_listener != null) {
+//                    mTv_listener.setTextColor(Color.WHITE);
+//                    mTv_listener.setText(randomGreeting);
+//                    TtsListener(randomGreeting);
+//                    ErrorNum = 0;
+//                }
+//            }
         }
         RecognizerListener();
     }
@@ -504,11 +499,9 @@ public class ChatFragment extends BaseFragment {
             mIat.cancel();
             mIat.destroy();
         }
-        if (null != mTts) {
-            mTts.stopSpeaking();
-            // 退出时释放连接
-            mTts.destroy();
-        }
+
+        xunfeiTtsHandler.release();
+//        release();
 
         if (mGifFromAssets != null) {
             mGifFromAssets.recycle();

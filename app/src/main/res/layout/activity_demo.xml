@@ -12,56 +12,32 @@
         android:layout_height="300dp"
         android:layout_marginTop="10dp"
         android:visibility="visible"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
         app:orientation="vertical"
         app:showIndicator="false" />
 
-    <pl.droidsonroids.gif.GifImageView
-        android:id="@+id/gif_speak"
-        android:layout_width="60sp"
-        android:layout_height="60dp"
+    <com.faceunity.ui.GLTextureView
+        android:id="@+id/gl_surface"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_below="@id/recycler_ver"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="30dp"
-        android:background="#00000000"
-        android:visibility="visible"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-
-    <!--    <com.faceunity.ui.GLTextureView-->
-    <!--        android:id="@+id/gl_surface"-->
-    <!--        android:layout_width="wrap_content"-->
-    <!--        android:layout_height="500dp"-->
-    <!--        android:layout_below="@id/gif_speak"-->
-    <!--        android:background="@color/transparent"-->
-    <!--        app:layout_constraintBottom_toBottomOf="parent"-->
-    <!--        app:layout_constraintLeft_toLeftOf="parent"-->
-    <!--        app:layout_constraintRight_toRightOf="parent"-->
-    <!--        app:layout_constraintTop_toTopOf="parent" />-->
+        android:layout_marginTop="50dp" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/gif_speak"
+        android:layout_below="@id/recycler_ver"
         android:onClick="startDetect"
         android:text="开启检测"
         android:visibility="visible" />
 
-
-    <!--    <Button-->
-    <!--        android:layout_width="wrap_content"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:onClick="text"-->
-    <!--        android:text="text" />-->
-
-    <!--    <TextureView-->
-    <!--        android:id="@+id/id_textureview"-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="match_parent"-->
-    <!--        android:layout_alignParentEnd="true"-->
-    <!--        android:visibility="gone" />-->
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/recycler_ver"
+        android:layout_marginLeft="500dp"
+        android:onClick="startDetect1"
+        android:text="开启检测1"
+        android:visibility="visible" />
 
 
 </RelativeLayout>

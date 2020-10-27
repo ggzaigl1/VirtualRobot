@@ -1,32 +1,32 @@
 package com.lilosoft.virtualrobot.activity;
 
-import android.graphics.Bitmap;
-import android.graphics.SurfaceTexture;
-import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Base64;
 import android.util.Log;
-import android.view.Surface;
-import android.view.TextureView;
 import android.view.View;
+import android.widget.Toast;
 
+import com.blankj.utilcode.util.ToastUtils;
 import com.faceunity.FUStaEngine;
+import com.faceunity.sta.OnMediaPlayListener;
 import com.faceunity.ui.GLTextureView;
 import com.google.gson.Gson;
+import com.iflytek.cloud.SpeechSynthesizer;
 import com.lilosoft.virtualrobot.Constant;
 import com.lilosoft.virtualrobot.R;
 import com.lilosoft.virtualrobot.adapter.WebBannerAdapter;
 import com.lilosoft.virtualrobot.bean.BannerBean;
 import com.lilosoft.virtualrobot.bean.FaceInfoBean;
+import com.lilosoft.virtualrobot.entity.Effect;
 import com.lilosoft.virtualrobot.net.ApiService;
+import com.lilosoft.virtualrobot.tts.XunfeiTtsHandler;
+import com.lilosoft.virtualrobot.utils.EffectFactory;
 import com.lilosoft.virtualrobot.utils.StaUnityUtils;
+import com.lilosoft.virtualrobot.utils.SwitchUtils;
 import com.lilosoft.virtualrobot.widget.layoutmanager.BannerLayout;
 
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -35,7 +35,6 @@ import java.util.Map;
 
 import butterknife.BindView;
 import okhttp3.ResponseBody;
-import pl.droidsonroids.gif.GifDrawable;
 import pl.droidsonroids.gif.GifImageView;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -45,33 +44,32 @@ public class DemoActivity extends AppCompatActivity {
 
     @BindView(R.id.recycler_ver)
     BannerLayout mBannerLayout;
-    @BindView(R.id.gif_speak)
-    GifImageView mGifSpeak;
-
     String banner = "{\"data\":[{\"desc\":\"享学~\",\"id\":29,\"imagePath\":\"https://wanandroid.com/blogimgs/bfcf57e5-aa5d-4ca3-9ca9-245dcbfd31e9.png\",\"isVisible\":1,\"order\":0,\"title\":\"【Android开发教程】高级UI：自定义ViewGroup与UI性能优化\",\"type\":0,\"url\":\"https://www.bilibili.com/video/BV1Ka4y1j7HA\"},{\"desc\":\"\",\"id\":6,\"imagePath\":\"https://www.wanandroid.com/blogimgs/62c1bd68-b5f3-4a3c-a649-7ca8c7dfabe6.png\",\"isVisible\":1,\"order\":1,\"title\":\"我们新增了一个常用导航Tab~\",\"type\":1,\"url\":\"https://www.wanandroid.com/navi\"},{\"desc\":\"一起来做个App吧\",\"id\":10,\"imagePath\":\"https://www.wanandroid.com/blogimgs/50c115c2-cf6c-4802-aa7b-a4334de444cd.png\",\"isVisible\":1,\"order\":1,\"title\":\"一起来做个App吧\",\"type\":1,\"url\":\"https://www.wanandroid.com/blog/show/2\"},{\"desc\":\"\",\"id\":20,\"imagePath\":\"https://www.wanandroid.com/blogimgs/90c6cc12-742e-4c9f-b318-b912f163b8d0.png\",\"isVisible\":1,\"order\":2,\"title\":\"flutter 中文社区 \",\"type\":1,\"url\":\"https://flutter.cn/\"}],\"errorCode\":0,\"errorMsg\":\"\"}";
     String[] imageUrls;
-    private String videoPath = Environment.getExternalStorageDirectory().getPath() + "/video.mp4";
-    private TextureView textureView;
-    private MediaPlayer mediaPlayer;
-    private SurfaceTexture surfaceTexture;
-    private Surface surface;
-    private final static String TAG = "MainActivity";
-    private int mVideomode = 0;
-    private int mVideoWidth;
-    private int mVideoHeight;
-    private GifDrawable mGifFromAssets;
-    private boolean s = true;
-    private boolean isSavingPic = false;
-    protected FUStaEngine mFuStaEngine;
+    private static final String TAG = "DemoActivity";
     private GLTextureView mGlTextureView;
+    protected FUStaEngine mFuStaEngine;
+    private boolean isv = true;
+    XunfeiTtsHandler xunfeiTtsHandler;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Constant.sShowMode = Constant.SHOW_MODE_FULL;
+        getWindow().setBackgroundDrawable(null);
         setContentView(R.layout.activity_demo);
-//        initGif();
-//        mGlTextureView = findViewById(R.id.gl_surface);
+
+        mGlTextureView = findViewById(R.id.gl_surface);
         mFuStaEngine = StaUnityUtils.getInstance().getFUStaEngine();
-//        initAnimationManager(mGlTextureView);
+//        mFuStaEngine.setAnimTransX(20);
+        Constant.POPUP_SELECTED_ENTITY.clear();
+        initAnimationManager(mGlTextureView);
+        mGlTextureView.setOpaque(false);
+
+        xunfeiTtsHandler = new XunfeiTtsHandler(this);
+        xunfeiTtsHandler.initTts();
+
+
         Gson gson = new Gson();
         BannerBean bannerBean = gson.fromJson(banner, BannerBean.class);
         imageUrls = new String[bannerBean.getData().size()];
@@ -93,66 +91,35 @@ public class DemoActivity extends AppCompatActivity {
 
     }
 
-
     protected void initAnimationManager(GLTextureView glTextureView) {
         mFuStaEngine.onCreate(glTextureView);
-    }
-
-    private boolean isf = false;
-
-    public void startDetect(View view) {
-//        if (!isf) {
-//            mBannerLayout.setVisibility(View.GONE);
-//            isf = true;
-//        } else {
-//            mBannerLayout.setVisibility(View.VISIBLE);
-//            isf = false;
-//        }
-    }
-
-
-    /**
-     * bitmap转base64
-     *
-     * @param bitmap
-     * @return
-     */
-    public static String bitmapToBase64(Bitmap bitmap) {
-        String result = null;
-        ByteArrayOutputStream baos = null;
-        try {
-            if (bitmap != null) {
-                baos = new ByteArrayOutputStream();
-                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-                baos.flush();
-                baos.close();
-                byte[] bitmapBytes = baos.toByteArray();
-                result = Base64.encodeToString(bitmapBytes, Base64.DEFAULT);
+        mFuStaEngine.setAnimTransY(80, 10);
+        mFuStaEngine.setAnimTransZ(-1000, 10);
+        mFuStaEngine.setOnMediaPlayListener(new OnMediaPlayListener() {
+            @Override
+            public void onPrepared() {
             }
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                if (baos != null) {
-                    baos.flush();
-                    baos.close();
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
+
+            @Override
+            public void onCompleted() {
             }
-        }
-        return result;
-    }
 
+            @Override
+            public void onCancled() {
+            }
 
-    private void initGif() {
-        try {
-            mGifFromAssets = new GifDrawable(getAssets(), "load_spead.gif");
-            mGifSpeak.setImageDrawable(mGifFromAssets);
-            mGifFromAssets.start();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+            @Override
+            public void onError(String message) {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                    }
+                });
+            }
+        });
+        mFuStaEngine.setResolutionScale(1);
+        ArrayList<Effect> animEffects = EffectFactory.getEffectList();
+        mFuStaEngine.selectEffect(SwitchUtils.convertEffect(animEffects.get(0)));
     }
 
 
@@ -190,9 +157,6 @@ public class DemoActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-//        if (textureView.isAvailable()) {
-//            playVideo();
-//        }
     }
 
     @Override
@@ -200,8 +164,14 @@ public class DemoActivity extends AppCompatActivity {
         super.onPause();
     }
 
-    public void text(View view) {
-        getReport();
+    SpeechSynthesizer Tts;
+
+    public void startDetect(View view) {
+        xunfeiTtsHandler.start("2020年10月26日23时19分，我国在西昌卫星发射中心用长征二号丙运载火箭，成功将遥感三十号07组卫星送入预定轨道，发射获得圆满成功。此次任务还搭载发射了天启星座06星。");
     }
 
+    public void startDetect1(View view) {
+        mFuStaEngine.stopMediaPlayer();
+        xunfeiTtsHandler.start("遥感三十号07组卫星采用多星组网模式，主要用于开展电磁环境探测及相关技术试验。天启星座06星是北京国电高科科技有限公司研制的短报文通信卫星");
+    }
 }

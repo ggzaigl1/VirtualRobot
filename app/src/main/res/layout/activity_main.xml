@@ -40,11 +40,11 @@
 
     <FrameLayout
         android:id="@+id/fl_webView"
-        android:layout_width="500dp"
-        android:layout_height="600dp"
-        android:layout_marginStart="280dp"
-        android:layout_marginTop="300dp"
-        android:visibility="gone" />
+        android:layout_width="450dp"
+        android:layout_height="750dp"
+        android:layout_marginStart="250dp"
+        android:layout_marginTop="200dp"
+        android:visibility="visible" />
 
     <com.faceunity.ui.GLTextureView
         android:id="@+id/gl_surface"
@@ -68,7 +68,7 @@
     <FrameLayout
         android:id="@+id/fl_chat"
         android:layout_width="match_parent"
-        android:layout_height="400dp"
+        android:layout_height="300dp"
         android:layout_gravity="bottom"
         android:visibility="visible" />
 

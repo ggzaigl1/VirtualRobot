@@ -107,6 +107,7 @@ public class MainActivity extends BaseActivity implements SurfaceHolder.Callback
      */
     private boolean detectedFace = false;
     private boolean isDetectedFace = false;
+    private boolean isFaceIce = false;
 
     @BindView(R.id.fl_webView)
     public FrameLayout mFrameLayoutWebView;
@@ -156,6 +157,9 @@ public class MainActivity extends BaseActivity implements SurfaceHolder.Callback
         });
     }
 
+    public void stopMediaPlayer(){
+        mFuStaEngine.stopMediaPlayer();
+    }
     protected void initAnimationManager(GLTextureView glTextureView) {
         mFuStaEngine.onCreate(glTextureView);
         mFuStaEngine.setOnMediaPlayListener(new OnMediaPlayListener() {
@@ -183,7 +187,7 @@ public class MainActivity extends BaseActivity implements SurfaceHolder.Callback
         mFuStaEngine.setResolutionScale(1);
         ArrayList<Effect> animEffects = EffectFactory.getEffectList();
         mFuStaEngine.selectEffect(SwitchUtils.convertEffect(animEffects.get(0)));
-        mHandler.sendEmptyMessageDelayed(BASE_ACTION_SELECTED,2000);
+//        mHandler.sendEmptyMessageDelayed(BASE_ACTION_SELECTED,2000);
     }
 
     private void StartSurfaceView() {
@@ -284,9 +288,6 @@ public class MainActivity extends BaseActivity implements SurfaceHolder.Callback
                 if (face_detectionNum > 20) {
                     face_detectionNum = 0;
                     isDetectedFace = false;
-//                    mFuStaEngine.setAnimTransX(-20, 10);
-//                    mFuStaEngine.setAnimTransY(40, 10);
-//                    mFuStaEngine.setAnimTransZ(-450, 10);
 //                    CameraUtils.stopPreview();
                     showSNDH();
                     Log.i(TAG, "onFaceNotDetectedback: ");
@@ -309,6 +310,7 @@ public class MainActivity extends BaseActivity implements SurfaceHolder.Callback
         mBannerLayout.setAdapter(WebBannerAdapter2);
 
     }
+
     //    x左右移动，参数:float 一般调整范围 -100~100，从左到右
     //    y上下移动，参数:float 一般调整范围 -100~100，-100~100，从下到上
     //    z放大缩小，参数:float 一般调整范围 -1000~2000，从大到小
@@ -320,7 +322,7 @@ public class MainActivity extends BaseActivity implements SurfaceHolder.Callback
 
     //人物还原
     public void onBackBaseActionSelected() {
-        mFuStaEngine.setAnimTransX(0,10);
+        mFuStaEngine.setAnimTransX(0, 10);
         mFuStaEngine.setAnimTransY(80, 10);
         mFuStaEngine.setAnimTransZ(-1000, 10);
     }
@@ -350,15 +352,17 @@ public class MainActivity extends BaseActivity implements SurfaceHolder.Callback
     }
 
     //未识别到人 回到初始页面
-    public void onEndActionSelected(String path) {
+    public void onEndActionSelected(String path, int type) {
         mFuStaEngine.setAnimTransX(-15, 10);
         mFuStaEngine.setAnimTransZ(-650, 10);
-        mFuStaEngine.updateAnimationOnce(path, new AnimationStateListener() {
-            @Override
-            public void onAnimationComplete() {
-                Log.e(TAG, "onAnimationComplete: 完成鞠躬");
-            }
-        });
+        if (type == 1) {
+            mFuStaEngine.updateAnimationOnce(path, new AnimationStateListener() {
+                @Override
+                public void onAnimationComplete() {
+                    Log.e(TAG, "onAnimationComplete: 完成鞠躬");
+                }
+            });
+        }
     }
 
 
@@ -406,6 +410,7 @@ public class MainActivity extends BaseActivity implements SurfaceHolder.Callback
                     String jsonVal = response.body().string();
                     FaceInfoBean faceInfoBean = new Gson().fromJson(jsonVal, FaceInfoBean.class);
                     if (faceInfoBean.isSuccess()) {
+                        isFaceIce = true;
                         onBaseActionSelected();
                         if (!TextUtils.isEmpty(faceInfoBean.getObj().getName())) {
                             showCharFragmentWithName(faceInfoBean.getObj().getId(), faceInfoBean.getObj().getName(), faceInfoBean.getObj().getSex(), faceInfoBean.getObj().getGreetings());
@@ -496,10 +501,17 @@ public class MainActivity extends BaseActivity implements SurfaceHolder.Callback
 
     //人脸识别详情页面
     public void showSNDH() {
-        onEndActionSelected("effect/cartoon_female/animation/STA_anim_kt_def_female_jugong");
+        stopMediaPlayer();
         StartSurfaceView();
         mFrameLayoutWebView.setVisibility(View.GONE);
         mBannerLayout.setVisibility(View.VISIBLE);
+        if (isFaceIce) {
+            onEndActionSelected("effect/cartoon_female/animation/STA_anim_kt_def_female_jugong.bundle", 1);
+            isFaceIce = false;
+        } else {
+            onEndActionSelected("effect/cartoon_female/animation/STA_anim_kt_def_female_jugong.bundle", 0);
+            isFaceIce = false;
+        }
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         if (materialFragment == null) {
             materialFragment = new MaterialFragment();

@@ -83,7 +83,7 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             case CharBean.TYPE_RECEIVED:
                 ((VH) viewHolder).mAnswer.setText(charBean.getMessage());
                 if (!TextUtils.isEmpty(charBean.getQuestion())) {
-                    ((VH) viewHolder).mQuestion.setVisibility(View.VISIBLE);
+//                    ((VH) viewHolder).mQuestion.setVisibility(View.VISIBLE);
                     ((VH) viewHolder).mQuestion.setText(charBean.getQuestion());
                 } else {
                     ((VH) viewHolder).mQuestion.setVisibility(View.GONE);

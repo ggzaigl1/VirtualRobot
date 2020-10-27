@@ -16,9 +16,9 @@ public final class SwitchUtils {
      * 自定义形象转为SDK形象
      *
      * @param effect 形象
-     * */
+     */
     public static FUEffect convertEffect(Effect effect) {
-        if(effect != null){
+        if (effect != null) {
             effect.setBackgroundPath("");
             List<String> paths = effect.getBundlePath();
             String[] pathArr = new String[]{};
@@ -41,7 +41,7 @@ public final class SwitchUtils {
                 return new FUEffect(effect.getEffectID(), pathArr, actionArr, effect.getBsConfigPath(), effect.getLightPath(), effect.getBackgroundPath(), new double[]{coordinate.getFixX(), coordinate.getFixY(), coordinate.getFixZ()}, effect.getEmotionCode() > 0 ? FUEffectType.CARTOON : FUEffectType.REAL, effect.getTagAlignConfig());
             } else {
                 Coordinate coordinate = effect.getCoordinate();
-                return new FUEffect(effect.getEffectID(), pathArr, actionArr, effect.getBsConfigPath(), effect.getLightPath(), effect.getBackgroundPath(), new double[]{coordinate.getFixX(), coordinate.getFixY(), coordinate.getFixZ()}, effect.getEmotionCode() > 0 ? FUEffectType.CARTOON : FUEffectType.REAL, effect.getTagAlignConfig());
+                return new FUEffect(effect.getEffectID(), pathArr, actionArr, effect.getBsConfigPath(), effect.getLightPath(), effect.getBackgroundPath(), new double[]{-10, 40, -650}, effect.getEmotionCode() > 0 ? FUEffectType.CARTOON : FUEffectType.REAL, effect.getTagAlignConfig());
             }
         }
         return null;
