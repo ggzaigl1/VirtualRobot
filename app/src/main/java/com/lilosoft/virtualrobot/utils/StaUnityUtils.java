@@ -54,17 +54,35 @@ public final class StaUnityUtils {
                     //验证证书，必要
                     .setAuth(authpack.A())
                     //设置tts查询方式，必要（ASR方式需要设置：FUTtsType.ASR；Align方式需要设置：FUTtsType.ALIGNMENT）
-                    .setFUTtsType(FUTtsType.ASR)
+                    .setFUTtsType(FUTtsType.ALIGNMENT)
                     //设置语音识别工具包（ASR方式需要设置）
-                    .setAsrData(bytesAsr)
+                    // .setAsrData(bytesAsr)
                     //设置语音自动校准工具包（Align模式需要设置）
-                    // .setAlignData(bytesAlign)
+                    .setAlignData(bytesAlign)
                     //设置文字编码功能数据文件（Align模式和文本时间戳需要设置）
                     .setCharacterDecoder(bytesDecoder)
                     //设置离线鉴权
                     //.setOffLineAuth(offLineAuth)
                     //设置帧率限制
                     .setIsLimitFps(true);
+
+//            FUStaEngine.Builder builder = new FUStaEngine
+//                    //传入上下文，必要
+//                    .Builder(mContext)
+//                    //验证证书，必要
+//                    .setAuth(authpack.A())
+//                    //设置tts查询方式，必要（ASR方式需要设置：FUTtsType.ASR；Align方式需要设置：FUTtsType.ALIGNMENT）
+//                    .setFUTtsType(FUTtsType.ASR)
+//                    //设置语音识别工具包（ASR方式需要设置）
+//                    .setAsrData(bytesAsr)
+//                    //设置语音自动校准工具包（Align模式需要设置）
+//                    // .setAlignData(bytesAlign)
+//                    //设置文字编码功能数据文件（Align模式和文本时间戳需要设置）
+//                    .setCharacterDecoder(bytesDecoder)
+//                    //设置离线鉴权
+//                    //.setOffLineAuth(offLineAuth)
+//                    //设置帧率限制
+//                    .setIsLimitFps(true);
 
             mFUStaEngine = builder.build();
         } catch (IOException e) {

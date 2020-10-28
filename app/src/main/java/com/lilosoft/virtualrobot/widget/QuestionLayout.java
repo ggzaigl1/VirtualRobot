@@ -6,12 +6,16 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
 
 import com.lilosoft.virtualrobot.R;
 
 import java.util.List;
+import java.util.Random;
 
 /**
  * created by hehuan
@@ -19,7 +23,6 @@ import java.util.List;
  */
 public class QuestionLayout extends RelativeLayout {
 
-    private static final String TAG = "QuestionLayout";
     private List<String> mQuestionList;
     private QuestionLayoutListener mListener;
 
@@ -50,7 +53,7 @@ public class QuestionLayout extends RelativeLayout {
         int length = questionList.size();
 
 //        int screenWidth = ((ViewGroup)getParent()).getWidth();
-        int screenWidth = 764;
+        int screenWidth = 964;
         int minMargin = 10;
 
         int lastTop = 0;
@@ -62,7 +65,7 @@ public class QuestionLayout extends RelativeLayout {
         int topMargin = 16;
         int currentUsableWidth = screenWidth;
 
-        Log.e(TAG, "currentUsableWidth:" + currentUsableWidth);
+        Log.i("QuestionLayout", "currentUsableWidth:" + currentUsableWidth);
 
         for (int i = 0; i < length; i++) {
             String question = questionList.get(i);
@@ -73,7 +76,7 @@ public class QuestionLayout extends RelativeLayout {
             textView.setText(question);
             textView.setTextColor(Color.WHITE);
             textView.setGravity(Gravity.LEFT);
-            textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
+            textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18);
             textView.setBackground(getContext().getDrawable(R.drawable.bg_question));
             textView.setPadding(16, 0, 16, 0);
             textView.setLayoutParams(params);
@@ -85,24 +88,24 @@ public class QuestionLayout extends RelativeLayout {
             int top = 0;
             int left = 0;
 
-            if (i == 0) {
-                top = 0;
-                left = 0;
-            } else {
-                if (currentUsableWidth >= (width + leftMargin)) {
-                    top = lastTop;
-                    left = lastLeft + lastWidth + leftMargin;
-                } else {
-                    currentUsableWidth = screenWidth;
-                    top = lastTop + lastHeight + topMargin;
+            if (currentUsableWidth >= (width + leftMargin)) {
+                top = lastTop;
+                if (i == 0) {
                     left = 0;
-                    height = height * (width / screenWidth + 1);
+                } else {
+                    left = lastLeft + lastWidth + leftMargin;
                 }
+            } else {
+                currentUsableWidth = screenWidth;
+                top = lastTop + lastHeight + topMargin;
+                left = 0;
+                height = height * (width / screenWidth + 1);
             }
+
             lastTop = top;
             lastLeft = left;
 
-            Log.e(TAG, " lastLeft:" + lastLeft);
+            Log.i("QuestionLayout", " lastLeft:" + lastLeft);
             currentUsableWidth -= (width + leftMargin);
 
             params.leftMargin = left + leftMargin;
@@ -118,7 +121,7 @@ public class QuestionLayout extends RelativeLayout {
             lastHeight = height;
 //            int lineCount = textView.getLineCount();
 
-            Log.e(TAG, " index:" + i + " top:" + top + " left:" + left + " width:" + width + " height:" + lastHeight + " currentUsableWidth:" + currentUsableWidth);
+            Log.i("QuestionLayout", " index:" + i + " top:" + top + " left:" + left + " width:" + width + " height:" + lastHeight + " currentUsableWidth:" + currentUsableWidth);
         }
     }
 

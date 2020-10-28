@@ -17,8 +17,8 @@
         android:id="@+id/tv_listener"
         android:layout_width="wrap_content"
         android:layout_height="50dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="18dp"
         android:layout_toEndOf="@id/gif_speak"
         android:background="@drawable/record_bg"
         android:ellipsize="end"
@@ -26,7 +26,6 @@
         android:lines="1"
         android:paddingStart="35dp"
         android:paddingTop="8dp"
-        android:paddingEnd="16dp"
         android:paddingBottom="8dp"
         android:textColor="@color/red"
         android:textSize="16sp"
@@ -70,7 +69,10 @@
             android:id="@+id/recycler_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="5dp"
             android:background="#00000000" />
 
     </RelativeLayout>

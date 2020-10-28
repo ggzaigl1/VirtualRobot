@@ -6,6 +6,7 @@ import android.content.Context;
 import android.support.multidex.MultiDex;
 import android.util.Log;
 
+import com.faceunity.utils.LogUtils;
 import com.iflytek.cloud.SpeechUtility;
 import com.lilosoft.virtualrobot.exception.UnCeHandler;
 
@@ -27,6 +28,7 @@ public class MyApplication extends Application {
         SpeechUtility.createUtility(MyApplication.this, "appid=" + getString(R.string.app_id));
         super.onCreate();
         sApplication = this;
+        LogUtils.setLogLevel(LogUtils.DEBUG);
 //        init();
     }
 

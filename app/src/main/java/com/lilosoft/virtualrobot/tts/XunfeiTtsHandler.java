@@ -139,7 +139,6 @@ public class XunfeiTtsHandler {
             if (mTts.isSpeaking()) {
                 mTts.pauseSpeaking();
             }
-
         }
 
         @Override
@@ -176,6 +175,7 @@ public class XunfeiTtsHandler {
                             .setAudioData(audio)
                             .setAudioType(FUAudioType.WAV)
                             .setAudioProgressType(FUAudioProgressType.AUDIO_SINGLE)
+                            .setAlignText("星采用多星组网模式，主要用于开展电磁环境探测及相关技术试验。天启星座06星是北京国电高科科技有限公司研制的短报文通信卫星")
                             .setTimestampType(FUTimestampType.PHONE);
                     long duration = System.currentTimeMillis();
                     Log.e(TAG, "onCompleted " + "call duration :" + duration);

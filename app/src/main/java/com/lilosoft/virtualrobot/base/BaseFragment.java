@@ -26,7 +26,9 @@ import com.iflytek.cloud.SpeechRecognizer;
 import com.iflytek.cloud.SpeechSynthesizer;
 import com.lilosoft.virtualrobot.R;
 import com.lilosoft.virtualrobot.tts.XunfeiTtsHandler;
+import com.lilosoft.virtualrobot.utils.FileUtils;
 
+import java.io.File;
 import java.util.Objects;
 
 import butterknife.ButterKnife;
@@ -45,7 +47,7 @@ public abstract class BaseFragment extends Fragment implements RecognizerListene
     private String voicer = "xiaofeng";
     private String language = "zh_cn";
     private String resultType = "plain";
-    public XunfeiTtsHandler xunfeiTtsHandler;
+    public String mWavPath;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -61,9 +63,12 @@ public abstract class BaseFragment extends Fragment implements RecognizerListene
         mIat = SpeechRecognizer.createRecognizer(getActivity(), mInitListener);
         setParam();
 
+        File wavDir = FileUtils.getWavCacheDir(getActivity());
+        mWavPath = new File(wavDir, FileUtils.getUUID32() + FileUtils.WAV_EXTENSION).getAbsolutePath();
 
-//        mTts = SpeechSynthesizer.createSynthesizer(getActivity(), mTtsInitListener);
-//        setTtsParam();
+        mTts = SpeechSynthesizer.createSynthesizer(getActivity(), mTtsInitListener);
+        setTtsParam();
+//        setTtsParam(mWavPath);
         init(savedInstanceState, rootView);
         return rootView;
     }
@@ -165,8 +170,33 @@ public abstract class BaseFragment extends Fragment implements RecognizerListene
         //支持实时音频返回，仅在synthesizeToUri条件下支持
         mTts.setParameter(SpeechConstant.TTS_DATA_NOTIFY, "1");
         //	mTts.setParameter(SpeechConstant.TTS_BUFFER_TIME,"1");
-
     }
+//    private void setTtsParam(String path) {
+//        // 清空参数
+//        mTts.setParameter(SpeechConstant.PARAMS, null);
+//        // 根据合成引擎设置相应参数
+//        mTts.setParameter(SpeechConstant.ENGINE_TYPE, SpeechConstant.TYPE_CLOUD);
+//        // 引擎类型
+//        mTts.setParameter(SpeechConstant.TTS_DATA_NOTIFY, "1");
+//        // 设置在线合成发音人
+//        // 默认发音人
+//        mTts.setParameter(SpeechConstant.VOICE_NAME, "xiaofeng");
+//        //设置合成语速
+//        mTts.setParameter(SpeechConstant.SPEED, "50");
+//        //设置合成音调
+//        mTts.setParameter(SpeechConstant.PITCH, "50");
+//        //设置合成音量
+//        mTts.setParameter(SpeechConstant.VOLUME, "50");
+//        //设置播放器音频流类型
+//        mTts.setParameter(SpeechConstant.STREAM_TYPE, "3");
+//        // 设置播放合成音频打断音乐播放，默认为true
+//        mTts.setParameter(SpeechConstant.KEY_REQUEST_FOCUS, "true");
+//        // 设置音频保存路径，保存音频格式支持pcm、wav
+//        mTts.setParameter(SpeechConstant.AUDIO_FORMAT, "wav");
+//        mTts.setParameter("nunum", "1");
+//        mTts.setParameter(SpeechConstant.TTS_AUDIO_PATH, path);
+//    }
+
 
     /**
      * 停止合成朗读
@@ -204,7 +234,6 @@ public abstract class BaseFragment extends Fragment implements RecognizerListene
             }
         }
     }
-
 
     public Animation shakeAnimation(int CycleTimes) {
         Animation translateAnimation = new TranslateAnimation(0, 10, 0, 0);

@@ -85,14 +85,14 @@ public class BannerLayout extends FrameLayout {
         autoPlayDuration = a.getInt(R.styleable.BannerLayout_interval, 4000);//自动播放时间
         isAutoPlaying = a.getBoolean(R.styleable.BannerLayout_autoPlaying, true);//是否自动播放
         itemSpace = a.getInt(R.styleable.BannerLayout_itemSpace, 55);//item间隔空间
-        centerScale = a.getFloat(R.styleable.BannerLayout_centerScale, 1.1f);//中心比例
+        centerScale = a.getFloat(R.styleable.BannerLayout_centerScale, 1.2f);//中心比例
         moveSpeed = a.getFloat(R.styleable.BannerLayout_moveSpeed, 1.0f);
         if (mSelectedDrawable == null) {
             //绘制默认选中状态图形
             GradientDrawable selectedGradientDrawable = new GradientDrawable();
             selectedGradientDrawable.setShape(GradientDrawable.OVAL);
             selectedGradientDrawable.setColor(Color.RED);
-            selectedGradientDrawable.setSize(dp2px(5), dp2px(5));
+            selectedGradientDrawable.setSize(dp2px(10), dp2px(3));
             selectedGradientDrawable.setCornerRadius(dp2px(5) / 2);
             mSelectedDrawable = new LayerDrawable(new Drawable[]{selectedGradientDrawable});
         }
@@ -101,7 +101,7 @@ public class BannerLayout extends FrameLayout {
             GradientDrawable unSelectedGradientDrawable = new GradientDrawable();
             unSelectedGradientDrawable.setShape(GradientDrawable.OVAL);
             unSelectedGradientDrawable.setColor(Color.GRAY);
-            unSelectedGradientDrawable.setSize(dp2px(5), dp2px(5));
+            unSelectedGradientDrawable.setSize(dp2px(2), dp2px(2));
             unSelectedGradientDrawable.setCornerRadius(dp2px(5) / 2);
             mUnselectedDrawable = new LayerDrawable(new Drawable[]{unSelectedGradientDrawable});
         }

@@ -15,11 +15,20 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.faceunity.AnimationStateListener;
+import com.faceunity.FUParams;
+import com.faceunity.fuenum.FUAudioProgressType;
+import com.faceunity.fuenum.FUAudioType;
+import com.faceunity.fuenum.FUTimestampType;
+import com.iflytek.cloud.InitListener;
 import com.iflytek.cloud.RecognizerResult;
+import com.iflytek.cloud.SpeechConstant;
 import com.iflytek.cloud.SpeechError;
+import com.iflytek.cloud.SpeechSynthesizer;
 import com.iflytek.cloud.SynthesizerListener;
 import com.lilosoft.virtualrobot.Constant;
 import com.lilosoft.virtualrobot.R;
+import com.lilosoft.virtualrobot.activity.DemoActivity;
 import com.lilosoft.virtualrobot.activity.MainActivity;
 import com.lilosoft.virtualrobot.adapter.ChatAdapter;
 import com.lilosoft.virtualrobot.base.BaseFragment;
@@ -29,7 +38,10 @@ import com.lilosoft.virtualrobot.bean.InitializeBean;
 import com.lilosoft.virtualrobot.net.result.RetrofitRequest;
 import com.lilosoft.virtualrobot.tts.XunfeiTtsHandler;
 import com.lilosoft.virtualrobot.utils.ActivityManageUtil;
+import com.lilosoft.virtualrobot.utils.FileUtils;
+import com.lilosoft.virtualrobot.utils.StaUnityUtils;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -74,8 +86,6 @@ public class ChatFragment extends BaseFragment {
     private boolean isError = true;
     private ArrayList<InitializeBean.ObjBean.RobotBean.GreetingsBean> greetings;
     private Timer timer;
-    public XunfeiTtsHandler xunfeiTtsHandler;
-
 
     @Override
     public void init(Bundle savedInstanceState, View view) {
@@ -90,21 +100,31 @@ public class ChatFragment extends BaseFragment {
         greetings = Constant.getGreetings();
         initRecyclerView();
         initStartGif();
-        xunfeiTtsHandler = new XunfeiTtsHandler(getActivity());
-        xunfeiTtsHandler.initTts();
 
-        StringBuilder buffer = new StringBuilder();
-        if (!TextUtils.isEmpty(greeting)) {
-            buffer.append(greeting);
-        } else if (!TextUtils.isEmpty(name) && !TextUtils.isEmpty(sex)) {
-            buffer.append("您好:").append(name.charAt(0)).append(sex).append(",").append(getRandomGreeting(greetings));
-            ((MainActivity) (getActivity())).showWebView(Constant.getFaceinfoWebUrl());//千人千面
-        } else {
-            buffer.append(getRandomGreeting(greetings));
-        }
-        startRobotSpeaking(buffer.toString(), "", "", null);
-        RecognizerListener();
-        ((MainActivity) (getActivity())).onBaseAnimationActionSelected("effect/cartoon_female/animation/STA_anim_kt_def_female_huishou.bundle");
+        StaUnityUtils.getInstance().getFUStaEngine().updateAnimationOnce("effect/cartoon_female/animation/STA_anim_kt_def_female_huishou.bundle", new AnimationStateListener() {
+            @Override
+            public void onAnimationComplete() {
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        StringBuilder buffer = new StringBuilder();
+                        if (!TextUtils.isEmpty(greeting)) {
+                            buffer.append(greeting);
+                        } else if (!TextUtils.isEmpty(name) && !TextUtils.isEmpty(sex)) {
+                            buffer.append("您好:").append(name.charAt(0)).append(sex).append(",").append(getRandomGreeting(greetings));
+                            ((MainActivity) getActivity()).onFaceActionSelected();
+                            ((MainActivity) (getActivity())).onActionSelected("effect/cartoon_female/animation/STA_anim_kt_def_female_dantanshou.bundle");
+                            ((MainActivity) (getActivity())).showWebView(Constant.getFaceinfoWebUrl());//千人千面
+                        } else {
+                            buffer.append(getRandomGreeting(greetings));
+                        }
+//        ((MainActivity) (getActivity())).onBaseAnimationActionSelected("effect/cartoon_female/animation/STA_anim_kt_def_female_huishou.bundle");
+                        startRobotSpeaking(buffer.toString(), "", "", null);
+                        RecognizerListener();
+                    }
+                });
+            }
+        });
     }
 
     @Override
@@ -197,6 +217,67 @@ public class ChatFragment extends BaseFragment {
     /**
      * 合成回调监听。
      */
+
+    private class SpeechListener implements SynthesizerListener {
+
+        @Override
+        public void onSpeakBegin() {
+
+        }
+
+        @Override
+        public void onBufferProgress(int i, int i1, int i2, String s) {
+
+        }
+
+        @Override
+        public void onSpeakPaused() {
+
+        }
+
+        @Override
+        public void onSpeakResumed() {
+
+        }
+
+        @Override
+        public void onSpeakProgress(int i, int i1, int i2) {
+
+        }
+
+        @Override
+        public void onCompleted(SpeechError speechError) {
+            Log.e(TAG, "onCompleted() called with: speechError = [" + speechError + "], wavPath = [" + mWavPath + "]");
+            File wavFile = new File(mWavPath);
+            if (wavFile.exists()) {
+                try {
+                    byte[] audio = FileUtils.readBytesFromFile(wavFile);
+                    FUParams params = new FUParams()
+                            .setStreamMode(0)
+                            .setAudioData(audio)
+                            .setAudioType(FUAudioType.WAV)
+                            .setTimestamp("1603853899540")
+//                            .setAudioProgressType(FUAudioProgressType.AUDIO_SINGLE)
+//                            .setAlignText("星采用多星组网模式")
+                            .setTimestampType(FUTimestampType.PHONE);
+                    long duration = System.currentTimeMillis();
+                    Log.e(TAG, "onCompleted " + "call duration :" + duration);
+                    StaUnityUtils.getInstance().getFUStaEngine().startStaDrivingProcess(params);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            } else {
+                Log.e(TAG, "WAV音频缓存失败");
+            }
+        }
+
+        @Override
+        public void onEvent(int i, int i1, int i2, Bundle bundle) {
+
+        }
+    }
+
+
     private SynthesizerListener mTtsListener = new SynthesizerListener() {
 
         @Override
@@ -244,10 +325,9 @@ public class ChatFragment extends BaseFragment {
 
     //合成回调监听。
     public void TtsListener(String msg) {
-//        mTts.startSpeaking(msg, mTtsListener);
-        ((MainActivity) Objects.requireNonNull(getActivity())).stopMediaPlayer();
-        xunfeiTtsHandler.start(msg);
-
+        mTts.startSpeaking(msg, mTtsListener);
+//        StaUnityUtils.getInstance().getFUStaEngine().stopMediaPlayer();
+//        mTts.synthesizeToUri(msg, mWavPath, new SpeechListener());
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -264,7 +344,6 @@ public class ChatFragment extends BaseFragment {
             @Override
             public void onBeforeResult() {
             }
-
 
             @Override
             public void onResult(ChatBean chatBean) {
@@ -296,10 +375,10 @@ public class ChatFragment extends BaseFragment {
                     }
                     switch (type) {
                         case "chat":
-                            mMainActivity.mBannerLayout.setVisibility(View.VISIBLE);
-                            mMainActivity.mFrameLayoutWebView.setVisibility(View.GONE);
-                            showUserMsg(query);
-                            TtsListener(reply_voice);
+//                            mMainActivity.mBannerLayout.setVisibility(View.VISIBLE);
+//                            mMainActivity.mFrameLayoutWebView.setVisibility(View.GONE);
+//                            showUserMsg(query);
+//                            TtsListener(reply_voice);
 //                            startRobotSpeaking(reply_voice, query, null, null);
                             break;
                         case "satisfy":
@@ -324,8 +403,7 @@ public class ChatFragment extends BaseFragment {
                             break;
                         case "failure":
                             questionFailed(reply);
-                            xunfeiTtsHandler.resumeSpeaking();
-//                            resumeSpeaking();
+                            resumeSpeaking();
 //                            mMainActivity.mBannerLayout.setVisibility(View.VISIBLE);
 //                            mMainActivity.mFrameLayoutWebView.setVisibility(View.GONE);
 //                            startRobotSpeaking(reply, "", null, null);
@@ -337,14 +415,14 @@ public class ChatFragment extends BaseFragment {
                             break;
                         case "event":
                             if (reply.equals("quit")) {
-                                xunfeiTtsHandler.stopSpeaking();
-//                                stopSpeaking();
+                                stopSpeaking();
                                 ((MainActivity) getActivity()).closeWebDialog();
                                 mMainActivity.mBannerLayout.setVisibility(View.VISIBLE);
                                 mMainActivity.mFrameLayoutWebView.setVisibility(View.GONE);
 //                                ((MainActivity) Objects.requireNonNull(getActivity())).showWake();
 //                                ((MainActivity) Objects.requireNonNull(getActivity())).showSNDH();
-//                                startRobotSpeaking("", query, file_url, null);
+//                                startRobotSpeaking("好的", query, file_url, null);
+                                ((MainActivity) getActivity()).onWebBackBaseActionSelected();
                                 //人物复原 todo
                             } else if (reply.equals("project")) {
                                 String projectWebUrl = Constant.getProjectWebUrl();
@@ -421,19 +499,18 @@ public class ChatFragment extends BaseFragment {
     @Override
     public void onBeginOfSpeech() {
         mGifFromAssets.start();
-        xunfeiTtsHandler.resumeSpeaking();
-//        resumeSpeaking();
+        resumeSpeaking();
+        Log.e(TAG, "onBeginOfSpeech: ");
     }
 
     @Override
     public void onEndOfSpeech() {
         mGifFromAssets.stop();
-        xunfeiTtsHandler.resumeSpeaking();
-//        resumeSpeaking();
+        resumeSpeaking();
 //        stopSpeechRecognizerVoice();
-        ActivityManageUtil.isSpeaking = false;
+//        ActivityManageUtil.isSpeaking = false;
+        Log.e(TAG, "onEndOfSpeech: ");
         // 此回调表示：检测到了语音的尾端点，已经进入识别过程，不再接受语音输入
-        Log.e(TAG, "结束说话：");
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -466,17 +543,16 @@ public class ChatFragment extends BaseFragment {
         Log.i(TAG, "ErrorNum:" + ErrorNum);
         if (ErrorNum == 4) {//15秒提示语
             String randomGreeting = getRandomGreeting(greetings);
-            xunfeiTtsHandler.num(ErrorNum, mTv_listener, randomGreeting);
-//            if (mTts.isSpeaking()) {
-//                ErrorNum = 0;
-//            } else {
-//                if (mTv_listener != null) {
-//                    mTv_listener.setTextColor(Color.WHITE);
-//                    mTv_listener.setText(randomGreeting);
-//                    TtsListener(randomGreeting);
-//                    ErrorNum = 0;
-//                }
-//            }
+            if (mTts.isSpeaking()) {
+                ErrorNum = 0;
+            } else {
+                if (mTv_listener != null) {
+                    mTv_listener.setTextColor(Color.WHITE);
+                    mTv_listener.setText(randomGreeting);
+                    TtsListener(randomGreeting);
+                    ErrorNum = 0;
+                }
+            }
         }
         RecognizerListener();
     }
@@ -499,10 +575,7 @@ public class ChatFragment extends BaseFragment {
             mIat.cancel();
             mIat.destroy();
         }
-
-        xunfeiTtsHandler.release();
-//        release();
-
+        release();
         if (mGifFromAssets != null) {
             mGifFromAssets.recycle();
         }
@@ -511,5 +584,4 @@ public class ChatFragment extends BaseFragment {
             mResultText.setText(null);
         }
     }
-
 }

@@ -6,14 +6,20 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
 
-import com.blankj.utilcode.util.ToastUtils;
+import com.faceunity.FUParams;
 import com.faceunity.FUStaEngine;
+import com.faceunity.fuenum.FUAudioProgressType;
+import com.faceunity.fuenum.FUAudioType;
+import com.faceunity.fuenum.FUTimestampType;
 import com.faceunity.sta.OnMediaPlayListener;
 import com.faceunity.ui.GLTextureView;
 import com.google.gson.Gson;
+import com.iflytek.cloud.InitListener;
+import com.iflytek.cloud.SpeechConstant;
+import com.iflytek.cloud.SpeechError;
 import com.iflytek.cloud.SpeechSynthesizer;
+import com.iflytek.cloud.SynthesizerListener;
 import com.lilosoft.virtualrobot.Constant;
 import com.lilosoft.virtualrobot.R;
 import com.lilosoft.virtualrobot.adapter.WebBannerAdapter;
@@ -23,26 +29,25 @@ import com.lilosoft.virtualrobot.entity.Effect;
 import com.lilosoft.virtualrobot.net.ApiService;
 import com.lilosoft.virtualrobot.tts.XunfeiTtsHandler;
 import com.lilosoft.virtualrobot.utils.EffectFactory;
+import com.lilosoft.virtualrobot.utils.FileUtils;
 import com.lilosoft.virtualrobot.utils.StaUnityUtils;
 import com.lilosoft.virtualrobot.utils.SwitchUtils;
 import com.lilosoft.virtualrobot.widget.layoutmanager.BannerLayout;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
-import butterknife.BindView;
 import okhttp3.ResponseBody;
-import pl.droidsonroids.gif.GifImageView;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Retrofit;
 
 public class DemoActivity extends AppCompatActivity {
 
-    @BindView(R.id.recycler_ver)
     BannerLayout mBannerLayout;
     String banner = "{\"data\":[{\"desc\":\"享学~\",\"id\":29,\"imagePath\":\"https://wanandroid.com/blogimgs/bfcf57e5-aa5d-4ca3-9ca9-245dcbfd31e9.png\",\"isVisible\":1,\"order\":0,\"title\":\"【Android开发教程】高级UI：自定义ViewGroup与UI性能优化\",\"type\":0,\"url\":\"https://www.bilibili.com/video/BV1Ka4y1j7HA\"},{\"desc\":\"\",\"id\":6,\"imagePath\":\"https://www.wanandroid.com/blogimgs/62c1bd68-b5f3-4a3c-a649-7ca8c7dfabe6.png\",\"isVisible\":1,\"order\":1,\"title\":\"我们新增了一个常用导航Tab~\",\"type\":1,\"url\":\"https://www.wanandroid.com/navi\"},{\"desc\":\"一起来做个App吧\",\"id\":10,\"imagePath\":\"https://www.wanandroid.com/blogimgs/50c115c2-cf6c-4802-aa7b-a4334de444cd.png\",\"isVisible\":1,\"order\":1,\"title\":\"一起来做个App吧\",\"type\":1,\"url\":\"https://www.wanandroid.com/blog/show/2\"},{\"desc\":\"\",\"id\":20,\"imagePath\":\"https://www.wanandroid.com/blogimgs/90c6cc12-742e-4c9f-b318-b912f163b8d0.png\",\"isVisible\":1,\"order\":2,\"title\":\"flutter 中文社区 \",\"type\":1,\"url\":\"https://flutter.cn/\"}],\"errorCode\":0,\"errorMsg\":\"\"}";
     String[] imageUrls;
@@ -51,6 +56,8 @@ public class DemoActivity extends AppCompatActivity {
     protected FUStaEngine mFuStaEngine;
     private boolean isv = true;
     XunfeiTtsHandler xunfeiTtsHandler;
+    private String mWavPath;
+    private SpeechSynthesizer mTts;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -58,13 +65,25 @@ public class DemoActivity extends AppCompatActivity {
         Constant.sShowMode = Constant.SHOW_MODE_FULL;
         getWindow().setBackgroundDrawable(null);
         setContentView(R.layout.activity_demo);
-
+        mBannerLayout = findViewById(R.id.recycler_ver);
         mGlTextureView = findViewById(R.id.gl_surface);
         mFuStaEngine = StaUnityUtils.getInstance().getFUStaEngine();
 //        mFuStaEngine.setAnimTransX(20);
         Constant.POPUP_SELECTED_ENTITY.clear();
         initAnimationManager(mGlTextureView);
         mGlTextureView.setOpaque(false);
+
+        File wavDir = FileUtils.getWavCacheDir(this);
+        mWavPath = new File(wavDir, FileUtils.getUUID32() + FileUtils.WAV_EXTENSION).getAbsolutePath();
+
+        mTts = SpeechSynthesizer.createSynthesizer(this, new InitListener() {
+            @Override
+            public void onInit(int i) {
+                Log.e(TAG, "onInit:{}: " + i);
+            }
+        });
+
+        setParam(mWavPath);
 
         xunfeiTtsHandler = new XunfeiTtsHandler(this);
         xunfeiTtsHandler.initTts();
@@ -87,8 +106,34 @@ public class DemoActivity extends AppCompatActivity {
             }
         });
 //        mBannerLayout.setItemSpace(10);
-//        mBannerLayout.setAdapter(WebBannerAdapter2);
+        mBannerLayout.setAdapter(WebBannerAdapter2);
 
+    }
+
+    private void setParam(String path) {
+        // 清空参数
+        mTts.setParameter(SpeechConstant.PARAMS, null);
+        // 根据合成引擎设置相应参数
+        mTts.setParameter(SpeechConstant.ENGINE_TYPE, SpeechConstant.TYPE_CLOUD);
+        // 引擎类型
+        mTts.setParameter(SpeechConstant.TTS_DATA_NOTIFY, "1");
+        // 设置在线合成发音人
+        // 默认发音人
+        mTts.setParameter(SpeechConstant.VOICE_NAME, "xiaofeng");
+        //设置合成语速
+        mTts.setParameter(SpeechConstant.SPEED, "50");
+        //设置合成音调
+        mTts.setParameter(SpeechConstant.PITCH, "50");
+        //设置合成音量
+        mTts.setParameter(SpeechConstant.VOLUME, "50");
+        //设置播放器音频流类型
+        mTts.setParameter(SpeechConstant.STREAM_TYPE, "3");
+        // 设置播放合成音频打断音乐播放，默认为true
+        mTts.setParameter(SpeechConstant.KEY_REQUEST_FOCUS, "true");
+        // 设置音频保存路径，保存音频格式支持pcm、wav
+        mTts.setParameter(SpeechConstant.AUDIO_FORMAT, "wav");
+        mTts.setParameter("nunum", "1");
+        mTts.setParameter(SpeechConstant.TTS_AUDIO_PATH, path);
     }
 
     protected void initAnimationManager(GLTextureView glTextureView) {
@@ -164,14 +209,93 @@ public class DemoActivity extends AppCompatActivity {
         super.onPause();
     }
 
-    SpeechSynthesizer Tts;
 
+    private class SpeechListener implements SynthesizerListener {
+
+        @Override
+        public void onSpeakBegin() {
+
+        }
+
+        @Override
+        public void onBufferProgress(int i, int i1, int i2, String s) {
+
+        }
+
+        @Override
+        public void onSpeakPaused() {
+
+        }
+
+        @Override
+        public void onSpeakResumed() {
+
+        }
+
+        @Override
+        public void onSpeakProgress(int i, int i1, int i2) {
+
+        }
+
+        @Override
+        public void onCompleted(SpeechError speechError) {
+            Log.e(TAG, "onCompleted() called with: speechError = [" + speechError + "], wavPath = [" + mWavPath + "]");
+//                File wavFile = new File("/storage/emulated/0/Android/data/com.lilosoft.virtualrobot/cache/wav/9128b00f272843b1b6b2309e57c3f0d5.wav");
+            File wavFile = new File(mWavPath);
+            if (wavFile.exists()) {
+                try {
+                    byte[] audio = FileUtils.readBytesFromFile(wavFile);
+                    FUParams params = new FUParams()
+                            .setStreamMode(0)
+                            .setAudioData(audio)
+                            .setAudioType(FUAudioType.WAV)
+                            .setAudioProgressType(FUAudioProgressType.AUDIO_SINGLE)
+                            .setAlignText("星采用多星组网模式，主要用于开展电磁环境探测及相关技术试验。天启星座06星是北京国电高科科技有限公司研制的短报文通信卫星")
+                            .setTimestampType(FUTimestampType.PHONE);
+                    long duration = System.currentTimeMillis();
+                    Log.e(TAG, "onCompleted " + "call duration :" + duration);
+                    StaUnityUtils.getInstance().getFUStaEngine().startStaDrivingProcess(params);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            } else {
+                Log.e(TAG, "WAV音频缓存失败");
+            }
+        }
+
+        @Override
+        public void onEvent(int i, int i1, int i2, Bundle bundle) {
+
+        }
+    }
     public void startDetect(View view) {
-        xunfeiTtsHandler.start("2020年10月26日23时19分，我国在西昌卫星发射中心用长征二号丙运载火箭，成功将遥感三十号07组卫星送入预定轨道，发射获得圆满成功。此次任务还搭载发射了天启星座06星。");
+        mFuStaEngine.stopMediaPlayer();
+        mTts.synthesizeToUri("星采用多星组网模式，主要用于开展电磁环境探测及相关技术试验。天启星座06星是北京国电高科科技有限公司研制的短报文通信卫星", mWavPath, new SpeechListener());
+
+
+//        mFuStaEngine.stopMediaPlayer();
+//        xunfeiTtsHandler.start("需要以下材料\n" +
+//                "1.不动产交易报税登记联办申请书；\n" +
+//                "2.《不动产权属证明》《商品房权属证明书》；\n" +
+//                "3.商品房买卖合同；\n" +
+//                "4.房产分户图；\n" +
+//                "5.购房发票；\n" +
+//                "6.湖北省住宅专项维修资金专用收据；\n" +
+//                "7.买房身份证明；\n" +
+//                "8.买房婚姻状况证明。");
     }
 
     public void startDetect1(View view) {
         mFuStaEngine.stopMediaPlayer();
-        xunfeiTtsHandler.start("遥感三十号07组卫星采用多星组网模式，主要用于开展电磁环境探测及相关技术试验。天启星座06星是北京国电高科科技有限公司研制的短报文通信卫星");
+        mTts.synthesizeToUri("需要以下材料\\n\" +\n" +
+                "                \"1.不动产交易报税登记联办申请书；\\n\" +\n" +
+                "                \"2.《不动产权属证明》《商品房权属证明书》；\\n\" +\n" +
+                "                \"3.商品房买卖合同；\\n\" +\n" +
+                "                \"4.房产分户图；\\n\" +\n" +
+                "                \"5.购房发票；\\n\" +\n" +
+                "                \"6.湖北省住宅专项维修资金专用收据；\\n\" +\n" +
+                "                \"7.买房身份证明；\\n\" +\n" +
+                "                \"8.买房婚姻状况证明。", mWavPath, new SpeechListener());
+//        xunfeiTtsHandler.start("");
     }
 }

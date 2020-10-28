@@ -90,6 +90,7 @@ public class MainActivity extends BaseActivity implements SurfaceHolder.Callback
     private static final int MESSAGE_LOAD = 1;
     private static final int BASE_ANIMATION_ACTION_SELECTED = 2;
     private static final int BASE_ACTION_SELECTED = 3;
+    private static final int BASE_ACTION_NO = 4;
     protected FUStaEngine mFuStaEngine;
 
     /**
@@ -157,9 +158,6 @@ public class MainActivity extends BaseActivity implements SurfaceHolder.Callback
         });
     }
 
-    public void stopMediaPlayer(){
-        mFuStaEngine.stopMediaPlayer();
-    }
     protected void initAnimationManager(GLTextureView glTextureView) {
         mFuStaEngine.onCreate(glTextureView);
         mFuStaEngine.setOnMediaPlayListener(new OnMediaPlayListener() {
@@ -285,7 +283,7 @@ public class MainActivity extends BaseActivity implements SurfaceHolder.Callback
                 face_detectionNum++;
                 Log.i(TAG, "noFaceNum:" + face_detectionNum);
                 mHandler.sendEmptyMessage(MESSAGE_LOAD);
-                if (face_detectionNum > 20) {
+                if (face_detectionNum > 19) {
                     face_detectionNum = 0;
                     isDetectedFace = false;
 //                    CameraUtils.stopPreview();
@@ -327,6 +325,12 @@ public class MainActivity extends BaseActivity implements SurfaceHolder.Callback
         mFuStaEngine.setAnimTransZ(-1000, 10);
     }
 
+    public void onWebBackBaseActionSelected() {
+        mFuStaEngine.setAnimTransX(-30, 10);
+        mFuStaEngine.setAnimTransY(80, 10);
+        mFuStaEngine.setAnimTransZ(-1000, 10);
+    }
+
     //打招呼
     public void onBaseAnimationActionSelected(String path) {
         mFuStaEngine.updateAnimationOnce(path, new AnimationStateListener() {
@@ -336,6 +340,13 @@ public class MainActivity extends BaseActivity implements SurfaceHolder.Callback
                 Log.e(TAG, "onAnimationComplete: 完成打招呼");
             }
         });
+    }
+
+    //识别到人
+    public void onFaceActionSelected() {
+        mFuStaEngine.setAnimTransX(-35, 10);
+        mFuStaEngine.setAnimTransY(60, 10);
+        mFuStaEngine.setAnimTransZ(-1000, 10);
     }
 
     //手指 弹出网页
@@ -384,8 +395,8 @@ public class MainActivity extends BaseActivity implements SurfaceHolder.Callback
                     });
                     break;
                 case BASE_ACTION_SELECTED:
-                    mFuStaEngine.setAnimTransX(-15, 10);
-                    mFuStaEngine.setAnimTransZ(-650, 10);
+                    break;
+                case BASE_ACTION_NO:
                     break;
             }
         }
@@ -501,7 +512,7 @@ public class MainActivity extends BaseActivity implements SurfaceHolder.Callback
 
     //人脸识别详情页面
     public void showSNDH() {
-        stopMediaPlayer();
+//        StaUnityUtils.getInstance().getFUStaEngine().stopMediaPlayer();
         StartSurfaceView();
         mFrameLayoutWebView.setVisibility(View.GONE);
         mBannerLayout.setVisibility(View.VISIBLE);
