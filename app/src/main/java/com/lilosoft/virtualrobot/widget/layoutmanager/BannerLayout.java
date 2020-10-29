@@ -23,6 +23,8 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 
 import com.lilosoft.virtualrobot.R;
+import com.lilosoft.virtualrobot.widget.layoutmanager.BannerLayoutManager;
+import com.lilosoft.virtualrobot.widget.layoutmanager.CenterSnapHelper;
 
 import static android.widget.AbsListView.OnScrollListener.SCROLL_STATE_IDLE;
 
@@ -82,17 +84,17 @@ public class BannerLayout extends FrameLayout {
     protected void initView(Context context, AttributeSet attrs) {
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.BannerLayout);
         showIndicator = a.getBoolean(R.styleable.BannerLayout_showIndicator, true);
-        autoPlayDuration = a.getInt(R.styleable.BannerLayout_interval, 4000);//自动播放时间
-        isAutoPlaying = a.getBoolean(R.styleable.BannerLayout_autoPlaying, true);//是否自动播放
-        itemSpace = a.getInt(R.styleable.BannerLayout_itemSpace, 55);//item间隔空间
-        centerScale = a.getFloat(R.styleable.BannerLayout_centerScale, 1.2f);//中心比例
+        autoPlayDuration = a.getInt(R.styleable.BannerLayout_interval, 4000);
+        isAutoPlaying = a.getBoolean(R.styleable.BannerLayout_autoPlaying, true);
+        itemSpace = a.getInt(R.styleable.BannerLayout_itemSpace, 20);
+        centerScale = a.getFloat(R.styleable.BannerLayout_centerScale, 1.2f);
         moveSpeed = a.getFloat(R.styleable.BannerLayout_moveSpeed, 1.0f);
         if (mSelectedDrawable == null) {
             //绘制默认选中状态图形
             GradientDrawable selectedGradientDrawable = new GradientDrawable();
             selectedGradientDrawable.setShape(GradientDrawable.OVAL);
             selectedGradientDrawable.setColor(Color.RED);
-            selectedGradientDrawable.setSize(dp2px(10), dp2px(3));
+            selectedGradientDrawable.setSize(dp2px(5), dp2px(5));
             selectedGradientDrawable.setCornerRadius(dp2px(5) / 2);
             mSelectedDrawable = new LayerDrawable(new Drawable[]{selectedGradientDrawable});
         }
@@ -101,7 +103,7 @@ public class BannerLayout extends FrameLayout {
             GradientDrawable unSelectedGradientDrawable = new GradientDrawable();
             unSelectedGradientDrawable.setShape(GradientDrawable.OVAL);
             unSelectedGradientDrawable.setColor(Color.GRAY);
-            unSelectedGradientDrawable.setSize(dp2px(2), dp2px(2));
+            unSelectedGradientDrawable.setSize(dp2px(5), dp2px(5));
             unSelectedGradientDrawable.setCornerRadius(dp2px(5) / 2);
             mUnselectedDrawable = new LayerDrawable(new Drawable[]{unSelectedGradientDrawable});
         }
@@ -121,7 +123,7 @@ public class BannerLayout extends FrameLayout {
         a.recycle();
         //轮播图部分
         mRecyclerView = new RecyclerView(context);
-        LayoutParams vpLayoutParams = new LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        LayoutParams vpLayoutParams = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         addView(mRecyclerView, vpLayoutParams);
         mLayoutManager = new BannerLayoutManager(getContext(), orientation);
         mLayoutManager.setItemSpace(itemSpace);
@@ -216,7 +218,7 @@ public class BannerLayout extends FrameLayout {
         hasInit = false;
         mRecyclerView.setAdapter(adapter);
         bannerSize = adapter.getItemCount();
-        mLayoutManager.setInfinite(bannerSize >= 2);
+        mLayoutManager.setInfinite(bannerSize >= 3);
         setPlaying(true);
         mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
 
@@ -230,6 +232,7 @@ public class BannerLayout extends FrameLayout {
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                 int first = mLayoutManager.getCurrentPosition();
+                Log.d("xxx", "onScrollStateChanged");
                 if (currentIndex != first) {
                     currentIndex = first;
                 }
@@ -293,7 +296,8 @@ public class BannerLayout extends FrameLayout {
         public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
             ImageView bannerPoint = new ImageView(getContext());
-            RecyclerView.LayoutParams lp = new RecyclerView.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            RecyclerView.LayoutParams lp = new RecyclerView.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT);
             lp.setMargins(indicatorMargin, indicatorMargin, indicatorMargin, indicatorMargin);
             bannerPoint.setLayoutParams(lp);
             return new RecyclerView.ViewHolder(bannerPoint) {
@@ -331,4 +335,6 @@ public class BannerLayout extends FrameLayout {
     public interface OnBannerItemClickListener {
         void onItemClick(int position);
     }
+
+
 }

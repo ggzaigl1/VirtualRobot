@@ -101,30 +101,35 @@ public class ChatFragment extends BaseFragment {
         initRecyclerView();
         initStartGif();
 
-        StaUnityUtils.getInstance().getFUStaEngine().updateAnimationOnce("effect/cartoon_female/animation/STA_anim_kt_def_female_huishou.bundle", new AnimationStateListener() {
-            @Override
-            public void onAnimationComplete() {
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        StringBuilder buffer = new StringBuilder();
-                        if (!TextUtils.isEmpty(greeting)) {
-                            buffer.append(greeting);
-                        } else if (!TextUtils.isEmpty(name) && !TextUtils.isEmpty(sex)) {
+        StringBuilder buffer = new StringBuilder();
+        if (!TextUtils.isEmpty(greeting)) {
+            buffer.append(greeting);
+            StaUnityUtils.getInstance().getFUStaEngine().updateAnimationOnce("effect/cartoon_female/animation/STA_anim_kt_def_female_huishou.bundle", null);
+            startRobotSpeaking(buffer.toString(), "", "", null);
+            RecognizerListener();
+        } else if (!TextUtils.isEmpty(name) && !TextUtils.isEmpty(sex)) {
+            StaUnityUtils.getInstance().getFUStaEngine().updateAnimationOnce("effect/cartoon_female/animation/STA_anim_kt_def_female_huishou.bundle", new AnimationStateListener() {
+                @Override
+                public void onAnimationComplete() {
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
                             buffer.append("您好:").append(name.charAt(0)).append(sex).append(",").append(getRandomGreeting(greetings));
                             ((MainActivity) getActivity()).onFaceActionSelected();
                             ((MainActivity) (getActivity())).onActionSelected("effect/cartoon_female/animation/STA_anim_kt_def_female_dantanshou.bundle");
                             ((MainActivity) (getActivity())).showWebView(Constant.getFaceinfoWebUrl());//千人千面
-                        } else {
-                            buffer.append(getRandomGreeting(greetings));
+                            startRobotSpeaking(buffer.toString(), "", "", null);
+                            RecognizerListener();
                         }
-//        ((MainActivity) (getActivity())).onBaseAnimationActionSelected("effect/cartoon_female/animation/STA_anim_kt_def_female_huishou.bundle");
-                        startRobotSpeaking(buffer.toString(), "", "", null);
-                        RecognizerListener();
-                    }
-                });
-            }
-        });
+                    });
+                }
+            });
+        } else {
+            buffer.append(getRandomGreeting(greetings));
+            StaUnityUtils.getInstance().getFUStaEngine().updateAnimationOnce("effect/cartoon_female/animation/STA_anim_kt_def_female_huishou.bundle", null);
+            startRobotSpeaking(buffer.toString(), "", "", null);
+            RecognizerListener();
+        }
     }
 
     @Override
@@ -256,10 +261,10 @@ public class ChatFragment extends BaseFragment {
                             .setStreamMode(0)
                             .setAudioData(audio)
                             .setAudioType(FUAudioType.WAV)
-                            .setTimestamp("1603853899540")
+                            .setTimestamp("2.9570026 3.109003")
 //                            .setAudioProgressType(FUAudioProgressType.AUDIO_SINGLE)
 //                            .setAlignText("星采用多星组网模式")
-                            .setTimestampType(FUTimestampType.PHONE);
+                            .setTimestampType(FUTimestampType.CHARACTER);
                     long duration = System.currentTimeMillis();
                     Log.e(TAG, "onCompleted " + "call duration :" + duration);
                     StaUnityUtils.getInstance().getFUStaEngine().startStaDrivingProcess(params);
@@ -310,6 +315,7 @@ public class ChatFragment extends BaseFragment {
 
         @Override
         public void onCompleted(SpeechError error) {
+            Log.e(TAG, "onCompleted: " + error);
             if (error == null) {
                 Log.e(TAG, "播放完成: ");
                 ActivityManageUtil.isSpeaking = false;
@@ -421,7 +427,7 @@ public class ChatFragment extends BaseFragment {
                                 mMainActivity.mFrameLayoutWebView.setVisibility(View.GONE);
 //                                ((MainActivity) Objects.requireNonNull(getActivity())).showWake();
 //                                ((MainActivity) Objects.requireNonNull(getActivity())).showSNDH();
-//                                startRobotSpeaking("好的", query, file_url, null);
+                                startRobotSpeaking("好的", query, file_url, null);
                                 ((MainActivity) getActivity()).onWebBackBaseActionSelected();
                                 //人物复原 todo
                             } else if (reply.equals("project")) {

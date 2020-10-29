@@ -53,7 +53,7 @@ public class QuestionLayout extends RelativeLayout {
         int length = questionList.size();
 
 //        int screenWidth = ((ViewGroup)getParent()).getWidth();
-        int screenWidth = 964;
+        int screenWidth = 947;
         int minMargin = 10;
 
         int lastTop = 0;

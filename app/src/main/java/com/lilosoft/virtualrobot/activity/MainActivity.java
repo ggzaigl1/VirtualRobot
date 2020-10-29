@@ -314,6 +314,7 @@ public class MainActivity extends BaseActivity implements SurfaceHolder.Callback
     //    z放大缩小，参数:float 一般调整范围 -1000~2000，从大到小
     //人物缩小
     public void onBaseActionSelected() {
+        mFuStaEngine.setAnimTransX(-30, 10);
         mFuStaEngine.setAnimTransY(80, 10);
         mFuStaEngine.setAnimTransZ(-1000, 10);
     }
@@ -326,7 +327,7 @@ public class MainActivity extends BaseActivity implements SurfaceHolder.Callback
     }
 
     public void onWebBackBaseActionSelected() {
-        mFuStaEngine.setAnimTransX(-30, 10);
+        mFuStaEngine.setAnimTransX(-35, 10);
         mFuStaEngine.setAnimTransY(80, 10);
         mFuStaEngine.setAnimTransZ(-1000, 10);
     }
@@ -344,7 +345,7 @@ public class MainActivity extends BaseActivity implements SurfaceHolder.Callback
 
     //识别到人
     public void onFaceActionSelected() {
-        mFuStaEngine.setAnimTransX(-35, 10);
+        mFuStaEngine.setAnimTransX(-30, 10);
         mFuStaEngine.setAnimTransY(60, 10);
         mFuStaEngine.setAnimTransZ(-1000, 10);
     }

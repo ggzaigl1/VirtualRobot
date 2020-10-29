@@ -24,6 +24,7 @@ import com.iflytek.cloud.RecognizerListener;
 import com.iflytek.cloud.SpeechConstant;
 import com.iflytek.cloud.SpeechRecognizer;
 import com.iflytek.cloud.SpeechSynthesizer;
+import com.iflytek.cloud.util.ResourceUtil;
 import com.lilosoft.virtualrobot.R;
 import com.lilosoft.virtualrobot.tts.XunfeiTtsHandler;
 import com.lilosoft.virtualrobot.utils.FileUtils;
@@ -146,14 +147,43 @@ public abstract class BaseFragment extends Fragment implements RecognizerListene
      *
      * @return
      */
+//    private void setTtsParam() {
+//        // 清空参数
+//        mTts.setParameter(SpeechConstant.PARAMS, null);
+//        // 根据合成引擎设置相应参数
+//        mTts.setParameter(SpeechConstant.ENGINE_TYPE, SpeechConstant.TYPE_CLOUD);
+//        //语音合成人
+//        mTts.setParameter(SpeechConstant.VOICE_NAME, voicer);
+//        // 设置在线合成发音人
+//        //设置合成语速
+//        mTts.setParameter(SpeechConstant.SPEED, "50");
+//        //设置合成音调
+//        mTts.setParameter(SpeechConstant.PITCH, "50");
+//        //设置合成音量
+//        mTts.setParameter(SpeechConstant.VOLUME, "50");
+//        //设置播放器音频流类型
+//        mTts.setParameter(SpeechConstant.STREAM_TYPE, "3");
+//        // 设置播放合成音频打断音乐播放，默认为true
+//        mTts.setParameter(SpeechConstant.KEY_REQUEST_FOCUS, "true");
+//        // 设置音频保存路径，保存音频格式支持pcm、wav，设置路径为sd卡请注意WRITE_EXTERNAL_STORAGE权限
+//        mTts.setParameter(SpeechConstant.AUDIO_FORMAT, "pcm");
+//        mTts.setParameter(SpeechConstant.TTS_AUDIO_PATH, Environment.getExternalStorageDirectory() + "/msc/tts.pcm");
+//        //支持实时音频返回，仅在synthesizeToUri条件下支持
+//        mTts.setParameter(SpeechConstant.TTS_DATA_NOTIFY, "1");
+//        //	mTts.setParameter(SpeechConstant.TTS_BUFFER_TIME,"1");
+//    }
+
+
     private void setTtsParam() {
         // 清空参数
         mTts.setParameter(SpeechConstant.PARAMS, null);
-        // 根据合成引擎设置相应参数
-        mTts.setParameter(SpeechConstant.ENGINE_TYPE, SpeechConstant.TYPE_CLOUD);
-        //语音合成人
+        //设置合成
+        mTts.setParameter(SpeechConstant.ENGINE_TYPE, SpeechConstant.TYPE_XTTS);
+        //设置发音人资源路径
+        mTts.setParameter(ResourceUtil.TTS_RES_PATH, getResourcePath());
+        //设置发音人
         mTts.setParameter(SpeechConstant.VOICE_NAME, voicer);
-        // 设置在线合成发音人
+        //mTts.setParameter(SpeechConstant.TTS_DATA_NOTIFY,"1");//支持实时音频流抛出，仅在synthesizeToUri条件下支持
         //设置合成语速
         mTts.setParameter(SpeechConstant.SPEED, "50");
         //设置合成音调
@@ -162,15 +192,27 @@ public abstract class BaseFragment extends Fragment implements RecognizerListene
         mTts.setParameter(SpeechConstant.VOLUME, "50");
         //设置播放器音频流类型
         mTts.setParameter(SpeechConstant.STREAM_TYPE, "3");
+        //	mTts.setParameter(SpeechConstant.STREAM_TYPE, AudioManager.STREAM_MUSIC+"");
         // 设置播放合成音频打断音乐播放，默认为true
         mTts.setParameter(SpeechConstant.KEY_REQUEST_FOCUS, "true");
         // 设置音频保存路径，保存音频格式支持pcm、wav，设置路径为sd卡请注意WRITE_EXTERNAL_STORAGE权限
-        mTts.setParameter(SpeechConstant.AUDIO_FORMAT, "pcm");
-        mTts.setParameter(SpeechConstant.TTS_AUDIO_PATH, Environment.getExternalStorageDirectory() + "/msc/tts.pcm");
-        //支持实时音频返回，仅在synthesizeToUri条件下支持
-        mTts.setParameter(SpeechConstant.TTS_DATA_NOTIFY, "1");
-        //	mTts.setParameter(SpeechConstant.TTS_BUFFER_TIME,"1");
+        mTts.setParameter(SpeechConstant.AUDIO_FORMAT, "wav");
+        mTts.setParameter(SpeechConstant.TTS_AUDIO_PATH, Environment.getExternalStorageDirectory() + "/msc/tts.wav");
     }
+
+    //获取发音人资源路径
+    private String getResourcePath() {
+        StringBuffer tempBuffer = new StringBuffer();
+        String type = "xtts";
+        //合成通用资源
+        tempBuffer.append(ResourceUtil.generateResourcePath(getActivity(), ResourceUtil.RESOURCE_TYPE.assets, type + "/common.jet"));
+        tempBuffer.append(";");
+        //发音人资源
+        tempBuffer.append(ResourceUtil.generateResourcePath(getActivity(), ResourceUtil.RESOURCE_TYPE.assets, type + "/" + voicer + ".jet"));
+        return tempBuffer.toString();
+    }
+
+
 //    private void setTtsParam(String path) {
 //        // 清空参数
 //        mTts.setParameter(SpeechConstant.PARAMS, null);
